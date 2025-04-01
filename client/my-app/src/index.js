@@ -9,7 +9,6 @@ import reducers from './reducers';
 import App from './App';
 import './index.css';
 
-// Create a theme instance
 const theme = createTheme();
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
@@ -17,7 +16,9 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)));
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <App />
+     
+        <App />
+      
     </ThemeProvider>
   </Provider>,
   document.getElementById('root')

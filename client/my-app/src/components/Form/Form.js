@@ -10,7 +10,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  // ✅ Ensure tags is always initialized as an array
   const [postData, setPostData] = useState({
     creator: '',
     title: '',
@@ -18,12 +17,12 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: [], 
     selectedFile: '',
   });
+  
 
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
 
-  // ✅ Ensure postData is updated correctly and tags is always an array
   useEffect(() => {
     if (post) {
       setPostData({ 
@@ -39,7 +38,7 @@ const Form = ({ currentId, setCurrentId }) => {
       creator: '', 
       title: '', 
       message: '', 
-      tags: [], // ✅ Reset to empty array
+      tags: [], 
       selectedFile: '' 
     });
   };
@@ -92,7 +91,6 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={(e) => setPostData({ ...postData, message: e.target.value })} 
         />
 
-        {/* ✅ Ensure value is always a string by checking if tags is an array */}
         <TextField 
           name="tags" 
           variant="outlined" 
