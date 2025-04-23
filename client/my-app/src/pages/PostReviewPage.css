@@ -1,0 +1,93 @@
+
+.add-review-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 90px 20px 20px 20px; 
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.review-form label {
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.review-form input:focus,
+.review-form select:focus,
+.review-form textarea:focus {
+    border-color: #007bff;
+}
+
+
+.review-form textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+.checkbox-group input {
+    margin-right: 5px;
+}
+
+
+h3 {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #007bff;
+}
+.review-form button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.review-form button:hover {
+    background-color: #0056b3;
+}
+

@@ -1,0 +1,151 @@
+
+.reviewcard {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #f5f5f5;
+    border-radius: 9px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    padding-bottom: 10px;
+}
+.reviewcard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+.hostel-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid rgba(255, 204, 0, 0.5);
+}
+
+
+.reviewcontent {
+    padding: 15px;
+}
+
+
+.reviewcontent h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+ .nameadd{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ .reviewlike{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.location {
+    font-size: 14px;
+    color: #b0b0b0;
+    margin-bottom: 8px;
+}
+
+.rating {
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-bottom: 8px;
+}
+
+
+.review-text {
+    font-size: 14px;
+    color: #d1d1d1;
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+
+
+
+.tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag {
+    background: rgba(255, 204, 0, 0.2);
+    color: #ffcc00;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+
+
+
+
+.author-name {
+    font-size: 14px;
+    color: #f5f5f5;
+}
+
+.author-name strong {
+    color: #ffcc00;
+}
+
+
+
+.review-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 2px;
+    padding: 0 8px;
+}
+
+.like-btn, .dislike-btn {
+    background: #222;
+    color: #ffcc00;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.like-btn:hover, .dislike-btn:hover {
+    background: #333;
+}
+/* Clamp long review text */
+.review-text.clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* Show only 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Read More / Read Less Button */
+  .read-more {
+    color: #ffcc00;
+    font-weight: 500;
+    font-size: 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    padding: 0;
+    display: inline-block;
+  }
+  
+  .read-more:hover {
+    text-decoration: underline;
+  }
+  
