@@ -45,6 +45,9 @@ const Nav = ({ setshowLogin }) => {
                  <button onClick={logOut}>Logout</button>
         </div>
         )}
+        <Link to="/my-reviews">
+            <button className="my-reviews-btn">My Reviews</button>
+          </Link>  
       </div>
     </div>
   );

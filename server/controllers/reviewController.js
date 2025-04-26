@@ -303,62 +303,62 @@ module.exports.searchReviews = async (req, res) => {
 };
 
 module.exports.getSimilarReviews = async (req, res) => {
-	try {
-	  const { id } = req.params;
-	  const currentReview = await Review.findById(id);
-  
-	  if (!currentReview) {
-		return res.status(404).json({ success: false, message: "Review not found" });
-	  }
-  
-	  // Step 1: Strict match (all attributes + at least one facility)
-	  let similarReviews = await Review.find({
-		_id: { $ne: id },
-		location: currentReview.location,
-		roomType: currentReview.roomType,
-		priceRange: currentReview.priceRange,
-		facilities: { $in: currentReview.facilities }
-	  }).populate("user", "name") .limit(3);
-  
-  
-	  // Step 2: If less than 3, get fallback matches on any one attribute
-	  if (similarReviews.length < 3) {
-		const moreReviews = await Review.find({
-		  _id: { $ne: id },
-		  $or: [
-			{ location: currentReview.location },
-			{ roomType: currentReview.roomType },
-			{ priceRange: currentReview.priceRange },
-			{ facilities: { $in: currentReview.facilities } }
-		  ]
-		}).populate("user", "name") .limit(4 - similarReviews.length);
-  
-		// Avoid duplicates
-		const existingIds = new Set(similarReviews.map(r => r._id.toString()));
-		moreReviews.forEach(r => {
-		  if (!existingIds.has(r._id.toString())) {
-			similarReviews.push(r);
-		  }
-		});
-	  }
-  
-	  res.json({ success: true, similarReviews });
-	} catch (err) {
-	  console.error("Error fetching similar reviews:", err);
-	  res.status(500).json({ success: false, message: "Server error" });
-	}
-  };
-  
+  try {
+    const { id } = req.params;
+    const currentReview = await Review.findById(id);
 
-  module.exports.getMyReviews = async (req, res) => {
-    try {
+    if (!currentReview) {
+      return res.status(404).json({ success: false, message: "Review not found" });
+    }
+
+    // Step 1: Strict match (all attributes + at least one facility)
+    let similarReviews = await Review.find({
+      _id: { $ne: id },
+      location: currentReview.location,
+      roomType: currentReview.roomType,
+      priceRange: currentReview.priceRange,
+      facilities: { $in: currentReview.facilities }
+    }).populate("user", "name").limit(3);
+
+
+    // Step 2: If less than 3, get fallback matches on any one attribute
+    if (similarReviews.length < 3) {
+      const moreReviews = await Review.find({
+        _id: { $ne: id },
+        $or: [
+          { location: currentReview.location },
+          { roomType: currentReview.roomType },
+          { priceRange: currentReview.priceRange },
+          { facilities: { $in: currentReview.facilities } }
+        ]
+      }).populate("user", "name").limit(4 - similarReviews.length);
+
+      // Avoid duplicates
+      const existingIds = new Set(similarReviews.map(r => r._id.toString()));
+      moreReviews.forEach(r => {
+        if (!existingIds.has(r._id.toString())) {
+          similarReviews.push(r);
+        }
+      });
+    }
+
+    res.json({ success: true, similarReviews });
+  } catch (err) {
+    console.error("Error fetching similar reviews:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+module.exports.getMyReviews = async (req, res) => {
+  try {
     console.log("before");
-		const userId = req.user.id;
+    const userId = req.user.id;
     console.log(userId);
-	  const reviews = await Review.find({ user: userId }).populate("user", "name");
-	  res.json({ success: true, reviews });
-	} catch (err) {
-	  console.error("Error fetching my reviews:", err);
-	  res.status(500).json({ success: false, message: "Server error" });
-	}
-  };
+    const reviews = await Review.find({ user: userId }).populate("user", "name");
+    res.json({ success: true, reviews });
+  } catch (err) {
+    console.error("Error fetching my reviews:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
