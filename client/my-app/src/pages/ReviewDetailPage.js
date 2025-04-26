@@ -5,24 +5,37 @@ import { toast } from "react-toastify";
 import { StoreContext } from "../StoreContext";
 import "./ReviewDetailPage.css";
 import CommentSection from "../components/CommentSection";
+import Reviewcard from "../components/Reviewcard";
 
 const ReviewDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
+  const [similarReviews, setSimilarReviews] = useState([]);
   const { user, token } = useContext(StoreContext);
   const sliderRef = useRef(null);
 
+  const fetchReview = async () => {
+    try {
+      const response = await axios.get(`http://localhost:2000/review/${id}`);
+      setReview(response.data);
+    } catch (error) {
+      console.error("Error fetching review details:", error);
+    }
+  };
+
+  const fetchSimilarReviews = async () => {
+    try {
+      const res = await axios.get(`http://localhost:2000/review/${id}/similar`);
+      setSimilarReviews(res.data.similarReviews || []);
+    } catch (error) {
+      console.error("Error fetching similar reviews:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchReview = async () => {
-      try {
-        const response = await axios.get(`http://localhost:2000/review/${id}`);
-        setReview(response.data);
-      } catch (error) {
-        console.error("Error fetching review details:", error);
-      }
-    };
     fetchReview();
+    fetchSimilarReviews();
   }, [id]);
 
   const handleDelete = async () => {
@@ -54,7 +67,6 @@ const ReviewDetailPage = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            // DO NOT set Content-Type manually for FormData!
           },
         }
       );
@@ -131,6 +143,7 @@ const ReviewDetailPage = () => {
                 </ul>
               </div>
             </div>
+
             <div className="info-col">
               <h3>Facilities Ratings:</h3>
               <ul>
@@ -139,6 +152,7 @@ const ReviewDetailPage = () => {
                 ))}
               </ul>
             </div>
+
             <div className="info-col meta-column">
               <p><strong>Location:</strong> {review.location}</p>
               <p><strong>Rating:</strong> ⭐ {review.rating}/5</p>
@@ -159,7 +173,34 @@ const ReviewDetailPage = () => {
             </div>
           )}
 
+          {/* Comments should stay here */}
           <CommentSection reviewId={id} />
+        </div>
+      </div>
+
+      {/* Recommended reviews outside of review-info */}
+      <div className="recommended-reviews-wrapper">
+        <h3 id="similar">Recommended Reviews</h3>
+        <div className="review-card-container full-width-layout">
+          {Array.isArray(similarReviews) && similarReviews.length === 0 ? (
+            <p>No recommendations found.</p>
+          ) : (
+            similarReviews.map((item, index) => (
+              <Reviewcard
+                key={index}
+                id={item._id}
+                placeName={item.name}
+                reviewerName={item.user?.name || "Anonymous"}
+                reviewerId={item.user?._id}
+                location={item.location}
+                reviewText={item.reviewText}
+                rating={item.rating}
+                image={item.image}
+                facilities={item.facilities}
+                likes={item.likes}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -181,3 +181,19 @@
     flex-direction: column;
   }
 }
+.comment-section-wrapper {
+  margin-top: 30px;
+}
+
+.recommended-reviews-wrapper {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.review-card-container.full-width-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+

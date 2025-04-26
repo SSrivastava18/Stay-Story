@@ -21,4 +21,7 @@ router.get("/:id", reviewController.showReview);
 router.delete("/:id", isverified, reviewController.deleteReview);
 router.put("/:id", isverified, reviewController.updateReview);
 
+router.get("/:id/similar", reviewController.getSimilarReviews);
+router.get("/my-reviews", isverified, reviewController.getMyReviews);
+
 module.exports = router;
