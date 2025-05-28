@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import "./PostReviewPage.css";
 import { toast } from "react-toastify";
@@ -26,28 +26,6 @@ const PostReviewPage = () => {
       internet: "",
     },
   });
-
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true); // NEW
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const res = await axios.get(url + "/reviews", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setReviews(res.data.reviews || []);
-      } catch (error) {
-        toast.error("Error fetching reviews");
-      } finally {
-        setLoading(false); // Finish loading
-      }
-    };
-
-    fetchReviews();
-  }, [token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,6 +91,9 @@ const PostReviewPage = () => {
       });
 
       if (res.data.success) {
+        toast.success(res.data.message);
+
+        // Reset form
         setData({
           name: "",
           location: "",
@@ -131,7 +112,6 @@ const PostReviewPage = () => {
             internet: "",
           },
         });
-        toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
       }
@@ -244,24 +224,8 @@ const PostReviewPage = () => {
 
         <button type="submit">Submit Review</button>
       </form>
-
-      {/* Display reviews */}
-      <div className="review-cards-wrapper">
-        {loading ? (
-          <p>Loading reviews...</p>
-        ) : reviews.length > 0 ? (
-          reviews.map((review) => (
-            <div key={review.id} className="review-card">
-              <h3>{review.name}</h3>
-              <p>{review.location}</p>
-              <p>{review.reviewText}</p>
-            </div>
-          ))
-        ) : null}
-      </div>
     </div>
   );
 };
 
 export default PostReviewPage;
-

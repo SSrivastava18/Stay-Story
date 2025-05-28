@@ -11,13 +11,17 @@ cloudinary.config({
 // Get all reviews
 module.exports.getReviewData = async (req, res) => {
   try {
-    const allReview = await Review.find({}).populate("user", "name");
+    const allReview = await Review.find({})
+      .sort({ createdAt: -1 }) 
+      .populate("user", "name");
+
     res.json({ success: true, data: allReview });
   } catch (error) {
     console.error("Error fetching reviews:", error);
     res.status(500).json({ success: false, message: "Error fetching reviews" });
   }
 };
+
 
 // Add a new review
 module.exports.addReview = async (req, res) => {

@@ -73,10 +73,16 @@ const Reviewcard = ({
     }
   };
 
-  const firstImageUrl =
-    images?.length > 0 && images[0]?.url
-      ? images[0].url
-      : "/images/default-pg.jpg";
+  // ✅ Support both image formats: [{ url }] or [string]
+  const firstImageUrl = (() => {
+    if (!images || images.length === 0) return "/images/default-pg.jpg";
+
+    const img = images[0];
+    if (typeof img === "string") return img;
+    if (typeof img === "object" && img.url) return img.url;
+
+    return "/images/default-pg.jpg";
+  })();
 
   return (
     <div className="reviewcard">
@@ -94,7 +100,7 @@ const Reviewcard = ({
 
         <p className="review-text clamped">{reviewText}</p>
 
-        {reviewText.length > 120 && (
+        {reviewText?.length > 120 && (
           <Link to={`/review/${id}`} className="read-more">
             Read more
           </Link>

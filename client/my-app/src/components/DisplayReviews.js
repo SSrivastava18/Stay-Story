@@ -11,7 +11,7 @@ const DisplayReviews = () => {
       <h1 className="reviews-title">All Reviews</h1>
 
       <div className="grid-container">
-        {review_list?.map((item, index) => (
+        {[...review_list].reverse().map((item, index) => (
           <Reviewcard
             key={index}
             id={item._id}
@@ -21,7 +21,7 @@ const DisplayReviews = () => {
             location={item.location}
             reviewText={item.reviewText}
             rating={item.rating}
-            images={item.images} // ✅ correct prop
+            images={item.images}
             facilities={item.facilities}
             likes={item.likes}
           />
