@@ -108,8 +108,8 @@
 .review-cards-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 0 20px;
+  gap: 30px;
+  padding: 0 0px;
   transition: opacity 0.3s ease-in-out;
 }
 

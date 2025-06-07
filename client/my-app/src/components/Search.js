@@ -107,7 +107,7 @@ const Search = () => {
 			</div>
 
 			<h2 style={{ textAlign: "center", marginTop: "20px", color: "#333" }}>
-				{isSearching ? "Search Results" : "All Reviews"}
+				{isSearching ? "Search Results" : ""}
 			</h2>
 
 			{loading && (
