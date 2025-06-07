@@ -12,15 +12,36 @@ cloudinary.config({
 module.exports.getReviewData = async (req, res) => {
   try {
     const allReview = await Review.find({})
-      .sort({ createdAt: -1 }) 
-      .populate("user", "name");
+      .sort({ createdAt: -1 })
+      .populate("user", "name")
+      .lean();
 
-    res.json({ success: true, data: allReview });
+    const normalizedReviews = allReview.map((review, i) => {
+      // ✅ Convert image[] to images[] for frontend
+      if (Array.isArray(review.image) && review.image.length > 0) {
+        review.images = review.image.map(img => ({
+          url: img.url,
+          filename: img.filename,
+        }));
+      } else {
+        review.images = [];
+      }
+
+      // ✅ Optional: remove original 'image' field
+      delete review.image;
+
+      console.log(`#${i + 1} - Flattened image:`, review.images?.[0]?.url);
+
+      return review;
+    });
+
+    return res.json({ success: true, data: normalizedReviews });
   } catch (error) {
     console.error("Error fetching reviews:", error);
     res.status(500).json({ success: false, message: "Error fetching reviews" });
   }
 };
+
 
 
 // Add a new review
@@ -286,16 +307,33 @@ module.exports.searchReviews = async (req, res) => {
     console.log("Search Filter:", filter);
 
     const skip = (page - 1) * limit;
+
     const reviews = await Review.find(filter)
       .skip(skip)
       .limit(limit)
-      .populate("user", "name");
+      .populate("user", "name")
+      .lean(); // Make it easier to modify the object
 
     const totalReviews = await Review.countDocuments(filter);
 
+    const normalizedReviews = reviews.map((review, i) => {
+      if (Array.isArray(review.image) && review.image.length > 0) {
+        review.images = review.image.map((img) => ({
+          url: img.url,
+          filename: img.filename,
+        }));
+      } else {
+        review.images = [];
+      }
+
+      delete review.image;
+
+      return review;
+    });
+
     res.json({
       success: true,
-      reviews,
+      reviews: normalizedReviews,
       totalPages: Math.ceil(totalReviews / limit),
       currentPage: page,
       totalReviews,
@@ -306,13 +344,14 @@ module.exports.searchReviews = async (req, res) => {
   }
 };
 
+
 module.exports.getSimilarReviews = async (req, res) => {
   try {
     const { id } = req.params;
     const currentReview = await Review.findById(id);
 
     if (!currentReview) {
-      return res.status(404).json({ success: false, message: "Review not found" });
+      return res.status(404).json({ success: false, message: "Original review not found" });
     }
 
     // Step 1: Strict match (all attributes + at least one facility)
@@ -321,11 +360,13 @@ module.exports.getSimilarReviews = async (req, res) => {
       location: currentReview.location,
       roomType: currentReview.roomType,
       priceRange: currentReview.priceRange,
-      facilities: { $in: currentReview.facilities }
-    }).populate("user", "name").limit(3);
+      facilities: { $in: currentReview.facilities },
+    })
+      .populate("user", "name")
+      .limit(3)
+      .lean();
 
-
-    // Step 2: If less than 3, get fallback matches on any one attribute
+    // Step 2: If less than 3, fetch fallback matches (any one attribute)
     if (similarReviews.length < 3) {
       const moreReviews = await Review.find({
         _id: { $ne: id },
@@ -333,25 +374,43 @@ module.exports.getSimilarReviews = async (req, res) => {
           { location: currentReview.location },
           { roomType: currentReview.roomType },
           { priceRange: currentReview.priceRange },
-          { facilities: { $in: currentReview.facilities } }
-        ]
-      }).populate("user", "name").limit(4 - similarReviews.length);
+          { facilities: { $in: currentReview.facilities } },
+        ],
+      })
+        .populate("user", "name")
+        .limit(4 - similarReviews.length)
+        .lean();
 
       // Avoid duplicates
-      const existingIds = new Set(similarReviews.map(r => r._id.toString()));
-      moreReviews.forEach(r => {
+      const existingIds = new Set(similarReviews.map((r) => r._id.toString()));
+      for (const r of moreReviews) {
         if (!existingIds.has(r._id.toString())) {
           similarReviews.push(r);
         }
-      });
+      }
     }
 
-    res.json({ success: true, similarReviews });
+    // Normalize image → images[]
+    similarReviews = similarReviews.map((review) => {
+      if (Array.isArray(review.image)) {
+        review.images = review.image.map((img) => ({
+          url: img.url,
+          filename: img.filename,
+        }));
+      } else {
+        review.images = [];
+      }
+      delete review.image;
+      return review;
+    });
+
+    return res.json({ success: true, similarReviews });
   } catch (err) {
     console.error("Error fetching similar reviews:", err);
-    res.status(500).json({ success: false, message: "Server error" });
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 
 module.exports.getMyReviews = async (req, res) => {

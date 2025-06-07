@@ -55,35 +55,6 @@ const ReviewDetailPage = () => {
     }
   };
 
-  const handleImageUpload = async (e) => {
-    const files = Array.from(e.target.files);
-    const formData = new FormData();
-    files.forEach(file => formData.append("images", file));
-
-    try {
-      const res = await axios.put(
-        `http://localhost:2000/review/upload-images/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (res.data.success) {
-        toast.success("Images uploaded!");
-        setReview(prev => ({
-          ...prev,
-          image: [...(prev.image || []), ...res.data.images],
-        }));
-      }
-    } catch (err) {
-      toast.error("Failed to upload images");
-      console.error("Upload error:", err);
-    }
-  };
-
   const scrollImage = (direction) => {
     if (sliderRef.current) {
       const scrollAmount = direction === "left" ? -300 : 300;
@@ -115,20 +86,6 @@ const ReviewDetailPage = () => {
 
             <button className="slider-arrow right" onClick={() => scrollImage("right")}>&#9654;</button>
           </div>
-
-          {isAuthor && (
-            <div style={{ marginTop: "12px" }}>
-              <label htmlFor="upload-more" className="edit-btn">Add More Pictures</label>
-              <input
-                id="upload-more"
-                type="file"
-                multiple
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleImageUpload}
-              />
-            </div>
-          )}
         </div>
 
         <div className="review-info">
@@ -173,12 +130,10 @@ const ReviewDetailPage = () => {
             </div>
           )}
 
-          {/* Comments should stay here */}
           <CommentSection reviewId={id} />
         </div>
       </div>
 
-      {/* Recommended reviews outside of review-info */}
       <div className="recommended-reviews-wrapper">
         <h3 id="similar">Recommended Reviews</h3>
         <div className="review-card-container full-width-layout">
@@ -195,10 +150,11 @@ const ReviewDetailPage = () => {
                 location={item.location}
                 reviewText={item.reviewText}
                 rating={item.rating}
-                image={item.image}
+                images={item.images} // ✅ use the correct field
                 facilities={item.facilities}
                 likes={item.likes}
               />
+
             ))
           )}
         </div>

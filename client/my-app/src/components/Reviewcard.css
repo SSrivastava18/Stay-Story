@@ -1,20 +1,21 @@
 .reviewcard {
-  background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
+  background: #1e293b; /* slate-800 */
+  border-radius: 20px;
   overflow: hidden;
-  width: 320px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding-bottom: 12px;
-  margin: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  margin: 14px;
 }
 
 .reviewcard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.6);
 }
+
 
 .reviewcard-link {
   text-decoration: none;
@@ -23,21 +24,30 @@
 
 .hostel-img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 3px solid rgba(255, 204, 0, 0.4);
+  aspect-ratio: 16 / 9;
+  object-fit: contain; 
+  background-color: #111827; 
+  border-bottom: 2px solid rgba(255, 204, 0, 0.25);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
+
 
 .reviewcontent {
-  padding: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
+
 .reviewcontent h2 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  color: #ffcc00;
-  margin-bottom: 4px;
+  color: #facc15; /* yellow-400 */
+  margin: 0;
 }
+
 
 .nameadd {
   display: flex;
@@ -94,12 +104,16 @@
   text-decoration: underline;
 }
 
-.tags {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+.tag {
+  background: #facc15;
+  color: #1a1a2e;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
+
 
 .tag {
   background: rgba(255, 204, 0, 0.15);

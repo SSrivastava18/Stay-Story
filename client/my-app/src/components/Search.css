@@ -1,107 +1,194 @@
-/* Push content down below fixed navbar */
+/* === PAGE SPACING === */
 .search-wrapper {
-    margin-top: 120px;
-    padding-bottom: 40px;
-  }
-  
-  /* Container for input and buttons */
+  margin-top: 120px;
+  padding-bottom: 40px;
+}
+
+/* === SEARCH BAR CONTAINER === */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding: 0 20px;
+}
+
+/* Input + Button layout */
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  gap: 0;
+}
+
+/* === SEARCH INPUT === */
+.search-bar {
+  flex: 1;
+  height: 48px;
+  padding: 0 16px;
+  padding-right: 40px; /* space for clear icon */
+  font-size: 15px;
+  color: #f3f4f6;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-right: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  outline: none;
+  min-width: 240px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.search-bar::placeholder {
+  color: #9ca3af;
+}
+
+.search-bar:focus {
+  border-color: #facc15;
+  box-shadow: 0 0 6px rgba(250, 204, 21, 0.4);
+}
+
+/* === SEARCH BUTTON === */
+.search-button {
+  height: 48px;
+  padding: 0 20px;
+  font-size: 15px;
+  background-color: #facc15;
+  color: #1f2937;
+  border: 1px solid #facc15;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
+  box-sizing: border-box;
+  margin-left: 5px;
+  margin-bottom: 15px;
+}
+
+.search-button:hover:not(:disabled) {
+  background-color: #eab308;
+  transform: scale(1.05);
+}
+
+.search-button:disabled {
+  background-color: #444;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* === CLEAR (×) ICON === */
+.clear-icon {
+  position: absolute;
+  right: 80px; /* ensures it's inside the input, not under button */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+  z-index: 2;
+  margin-right: 60px;
+}
+
+.clear-icon:hover {
+  color: #facc15;
+}
+
+/* === REVIEWS GRID === */
+.review-cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.review-card {
+  background: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+}
+
+.review-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #eee;
+}
+
+.review-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #facc15;
+}
+
+/* === MESSAGES === */
+.error-message,
+.no-results-message {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.error-message {
+  color: red;
+}
+
+.no-results-message {
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
   .search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
+    flex-direction: column;
+    align-items: stretch;
   }
-  
-  /* Input bar */
-  .search-bar {
-    width: 60%;
-    max-width: 500px;
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .search-input-wrapper {
+    flex-direction: column;
+    gap: 12px;
   }
-  
-  /* Buttons */
-  .search-button,
-  .clear-button {
-    padding: 10px 16px;
-    font-size: 15px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
+
+  .search-bar,
   .search-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .search-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .clear-button {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .clear-button:hover {
-    background-color: #5a6268;
-  }
-  
-  /* Grid layout for reviews */
-  .review-cards-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 0 20px;
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  /* Individual card style */
-  .review-card {
-    background: #fff;
-    padding: 20px;
+    width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    border: 1px solid #374151;
   }
-  
-  .review-card:hover {
-    transform: translateY(-5px);
+
+  .search-bar {
+    height: 55px;
+    padding: 12px 18px;
+    font-size: 16px;
+    padding-right: 40px; /* keep clear icon spacing */
+    box-sizing: border-box;
   }
-  
-  .review-card p {
-    font-size: 14px;
-    line-height: 1.6;
+
+  .search-button {
+    height: 56px;
+    font-size: 16px;
+    border: none;
   }
-  
-  .review-card h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
+
+  .clear-icon {
+    right: 30px;
+    font-size: 22px;
+	margin-bottom: 40px;
   }
-  
-  /* Error or No Results */
-  .no-results-message,
-  .error-message {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
-  }
-  
-  .error-message {
-    color: red;
-  }
-  
-  .no-results-message {
-    color: #555;
-  }
-  
+}

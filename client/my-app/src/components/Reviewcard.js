@@ -73,15 +73,25 @@ const Reviewcard = ({
     }
   };
 
-  // ✅ Support both image formats: [{ url }] or [string]
+  // ✅ Smart image handling with fallback
   const firstImageUrl = (() => {
-    if (!images || images.length === 0) return "/images/default-pg.jpg";
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2000";
+
+    if (!Array.isArray(images) || images.length === 0) {
+      return "https://via.placeholder.com/400x200?text=No+Image";
+    }
 
     const img = images[0];
-    if (typeof img === "string") return img;
-    if (typeof img === "object" && img.url) return img.url;
 
-    return "/images/default-pg.jpg";
+    if (typeof img === "string") {
+      return img.startsWith("http") ? img : `${baseUrl}/${img.replace(/\\/g, "/")}`;
+    }
+
+    if (typeof img === "object" && img.url) {
+      return img.url.startsWith("http") ? img.url : `${baseUrl}/${img.url.replace(/\\/g, "/")}`;
+    }
+
+    return "https://via.placeholder.com/400x200?text=No+Image";
   })();
 
   return (
