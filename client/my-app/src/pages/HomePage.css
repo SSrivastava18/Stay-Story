@@ -1,6 +1,6 @@
 /* Wrapper just provides background and top spacing */
 .homepage-wrapper {
-  margin-top: 60px;
+  margin-top: 50px;
   padding: 20px 0;
   background: linear-gradient(135deg, #0f172a, #1e293b);
   display: flex;
