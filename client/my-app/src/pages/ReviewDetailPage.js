@@ -12,6 +12,7 @@ const ReviewDetailPage = () => {
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const [similarReviews, setSimilarReviews] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(3);
   const { user, token } = useContext(StoreContext);
   const sliderRef = useRef(null);
 
@@ -68,13 +69,10 @@ const ReviewDetailPage = () => {
 
   return (
     <div className="review-detail-container">
-      <div className="review-content">
+      <div className="review-content flex-layout">
         <div className="review-left">
-          <h1 className="review-title">{review.name}</h1>
-
           <div className="image-slider-wrapper">
             <button className="slider-arrow left" onClick={() => scrollImage("left")}>&#9664;</button>
-
             <div className="image-slider" ref={sliderRef}>
               {Array.isArray(review.image) &&
                 review.image.map((img, i) =>
@@ -83,26 +81,38 @@ const ReviewDetailPage = () => {
                   ) : null
                 )}
             </div>
-
             <button className="slider-arrow right" onClick={() => scrollImage("right")}>&#9654;</button>
+          </div>
+          <h1 className="review-title below-image">{review.name}</h1>
+
+          <div className="comment-wrapper">
+            <CommentSection reviewId={id} />
           </div>
         </div>
 
         <div className="review-info">
-          <div className="info-row three-column-layout">
+          <div className="review-text-card">
+            <div className="quote-box">
+              <p className="quote-text">
+                “A good stay is not just about the bed you sleep in, but the comfort you feel, the people you meet, and the memories you make.”
+              </p>
+            </div>
+
+          </div>
+
+
+          <div className="info-row">
             <div className="info-col">
-              <div className="facilities">
-                <h3>Facilities:</h3>
-                <ul>
-                  {review.facilities.map((facility, index) => (
-                    <li key={index}>{facility}</li>
-                  ))}
-                </ul>
-              </div>
+              <h3 className="fs">Facilities:</h3>
+              <ul>
+                {review.facilities.map((facility, index) => (
+                  <li key={index}>{facility}</li>
+                ))}
+              </ul>
             </div>
 
             <div className="info-col">
-              <h3>Facilities Ratings:</h3>
+              <h3 className="fac">Facilities Ratings:</h3>
               <ul>
                 {Object.entries(review.facilitiesRating).map(([key, value], index) => (
                   <li key={index}><strong>{key}:</strong> {value}/5</li>
@@ -129,18 +139,16 @@ const ReviewDetailPage = () => {
               <button className="delete-btn" onClick={handleDelete}>Delete</button>
             </div>
           )}
-
-          <CommentSection reviewId={id} />
         </div>
       </div>
 
       <div className="recommended-reviews-wrapper">
-        <h3 id="similar">Recommended Reviews</h3>
+        <h3 id="similar">You may also like these...</h3>
         <div className="review-card-container full-width-layout">
-          {Array.isArray(similarReviews) && similarReviews.length === 0 ? (
+          {similarReviews.length === 0 ? (
             <p>No recommendations found.</p>
           ) : (
-            similarReviews.map((item, index) => (
+            similarReviews.slice(0, visibleCount).map((item, index) => (
               <Reviewcard
                 key={index}
                 id={item._id}
@@ -150,14 +158,24 @@ const ReviewDetailPage = () => {
                 location={item.location}
                 reviewText={item.reviewText}
                 rating={item.rating}
-                images={item.images} // ✅ use the correct field
+                images={item.images}
                 facilities={item.facilities}
                 likes={item.likes}
               />
-
             ))
           )}
         </div>
+
+        {visibleCount < similarReviews.length && (
+          <div className="see-more-container">
+            <button
+              className="see-more-button"
+              onClick={() => setVisibleCount(similarReviews.length)}
+            >
+              See More
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
