@@ -2,20 +2,20 @@
   background: #1e293b; /* slate-800 */
   border-radius: 20px;
   overflow: hidden;
-  width: 330px;
+  width: 100%;
+  max-width: 330px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  margin: 14px;
+  margin: 14px auto;
 }
 
 .reviewcard:hover {
   transform: translateY(-6px) scale(1.01);
   box-shadow: 0 14px 24px rgba(0, 0, 0, 0.6);
 }
-
 
 .reviewcard-link {
   text-decoration: none;
@@ -25,13 +25,12 @@
 .hostel-img {
   width: 100%;
   aspect-ratio: 16 / 9;
-  object-fit: contain; 
-  background-color: #111827; 
+  object-fit: contain;
+  background-color: #111827;
   border-bottom: 2px solid rgba(255, 204, 0, 0.25);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
-
 
 .reviewcontent {
   padding: 18px;
@@ -40,19 +39,19 @@
   gap: 8px;
 }
 
-
 .reviewcontent h2 {
   font-size: 20px;
   font-weight: 700;
-  color: #facc15; /* yellow-400 */
+  color: #facc15;
   margin: 0;
 }
-
 
 .nameadd {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .reviewlike {
@@ -60,11 +59,14 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .location {
   font-size: 14px;
   color: #cccccc;
+  flex-shrink: 0;
 }
 
 .rating {
@@ -105,23 +107,15 @@
 }
 
 .tag {
-  background: #facc15;
-  color: #1a1a2e;
-  padding: 5px 14px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-
-.tag {
   background: rgba(255, 204, 0, 0.15);
   color: #ffcc00;
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
+  margin-right: 5px;
+  margin-top: 5px;
+  display: inline-block;
 }
 
 .author-name {
@@ -160,4 +154,43 @@
   background: rgba(255, 204, 0, 0.4);
   color: #1a1a2e;
   border-color: rgba(255, 204, 0, 0.5);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* 🔽 Responsive Tweaks */
+@media (max-width: 480px) {
+  .reviewcard {
+    margin: 12px auto;
+    border-radius: 16px;
+  }
+
+  .reviewcontent {
+    padding: 14px;
+  }
+
+  .reviewcontent h2 {
+    font-size: 18px;
+  }
+
+  .review-text {
+    font-size: 13px;
+  }
+
+  .location,
+  .author-name,
+  .rating,
+  .tag {
+    font-size: 12px;
+  }
+
+  .like-btn {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
 }
