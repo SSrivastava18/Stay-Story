@@ -32,10 +32,13 @@ const MyReviewspage = () => {
 
   return (
     <div className="my-reviews-page">
-      <h2>My Reviews</h2>
+      <div className="my-reviews-header">
+        <h1>Here are your reviews</h1>
+        <p>Manage your valuable feedback.</p>
+      </div>
       <div className="review-card-container">
         {myReviews.length === 0 ? (
-          <p>You have not created any review yet.</p>
+          <p className="no-reviews-message">You have not created any review yet.</p>
         ) : (
           myReviews.map((item, index) => (
             <Reviewcard

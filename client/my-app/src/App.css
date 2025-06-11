@@ -3,19 +3,20 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
   margin: 0;
   padding: 0;
   color: #333;
+
 }
 
 .appbox {
   max-width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
-  background:white;
-
+  background: #0f172a; /* match home and review pages */
 }
+
 
 /* Toast Notification Styling */
 .Toastify__toast-container {
