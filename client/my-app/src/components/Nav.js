@@ -32,10 +32,9 @@ const Nav = ({ setshowLogin }) => {
     return (
         <div className="navbox">
             {/* Logo */}
-            <div className="logobox">
-                <img src="logo.avif" alt="logo" height="40px" />
-                <h2>StayStory</h2>
-            </div>
+            
+                <img id="logo" src="logo.png" alt="logo" height="300px" />
+        
 
             {/* Center Navigation */}
             <div className="centernav">

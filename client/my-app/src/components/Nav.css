@@ -8,6 +8,7 @@
   width: 100%;
   top: 0;
   left: 0;
+  height: 80px;
   z-index: 10000;
   padding: 12px 20px;
   box-shadow:
@@ -16,29 +17,24 @@
 
   flex-wrap: wrap;
 
+
 }
 
-.logobox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
+
+#logo {
+  height: 180px;
+    margin-top: -50px;
 }
 
-.logobox img {
-  height: 40px;
-}
 
-.logobox h2 {
-  font-size: 22px;
-  font-weight: bold;
-  color: #f1f5f9;
-}
 
 /* Center nav buttons */
 .centernav {
   display: flex;
   align-items: center;
   gap: 20px;
+
 }
 
 .centernav button {
