@@ -1,5 +1,5 @@
 .reviewcard {
-  background: #1e293b; /* slate-800 */
+  background: #1e293b;
   border-radius: 20px;
   overflow: hidden;
   width: 100%;
@@ -20,16 +20,71 @@
 .reviewcard-link {
   text-decoration: none;
   color: inherit;
+  position: relative;
 }
 
-.hostel-img {
+/* Image Slider Container */
+.image-slider-container {
+  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
+  height: 200px;
+  overflow: hidden;
   background-color: #111827;
-  border-bottom: 2px solid rgba(255, 204, 0, 0.25);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Prev Button */
+.prev-btn {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffcc00;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.prev-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Next Button */
+.next-btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffcc00;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.next-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .reviewcontent {
@@ -64,9 +119,20 @@
 }
 
 .location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 14px;
   color: #cccccc;
   flex-shrink: 0;
+}
+
+.location-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  color: #ffcc00;
+  fill: #facc15;
 }
 
 .rating {
@@ -163,7 +229,7 @@
   margin-top: 8px;
 }
 
-/* 🔽 Responsive Tweaks */
+/* Responsive Tweaks */
 @media (max-width: 480px) {
   .reviewcard {
     margin: 12px auto;
@@ -192,5 +258,9 @@
   .like-btn {
     font-size: 13px;
     padding: 5px 10px;
+  }
+
+  .slider-image {
+    height: 180px;
   }
 }

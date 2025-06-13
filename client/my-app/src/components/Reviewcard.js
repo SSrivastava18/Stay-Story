@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./Reviewcard.css";
+import locationIcon from "../icons/619.png"; // ✅ Correct import path
 
 const Reviewcard = ({
   id,
@@ -20,6 +21,7 @@ const Reviewcard = ({
   const [liked, setLiked] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -73,38 +75,62 @@ const Reviewcard = ({
     }
   };
 
-  const firstImageUrl = (() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2000";
+  const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2000";
 
-    if (!Array.isArray(images) || images.length === 0) {
-      return "https://via.placeholder.com/400x200?text=No+Image";
-    }
-
-    const img = images[0];
-
+  const getImageUrl = (img) => {
     if (typeof img === "string") {
       return img.startsWith("http") ? img : `${baseUrl}/${img.replace(/\\/g, "/")}`;
-    }
-
-    if (typeof img === "object" && img.url) {
+    } else if (typeof img === "object" && img?.url) {
       return img.url.startsWith("http") ? img.url : `${baseUrl}/${img.url.replace(/\\/g, "/")}`;
     }
-
     return "https://via.placeholder.com/400x200?text=No+Image";
-  })();
+  };
+
+  const nextImage = (e) => {
+    e.preventDefault();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = (e) => {
+    e.preventDefault();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <div className="reviewcard">
       <Link to={`/review/${id}`} className="reviewcard-link">
-        <div>
-          <img src={firstImageUrl} alt="PG" className="hostel-img" />
+        <div className="image-slider-container">
+          {images.length > 0 ? (
+            <>
+              <img
+                src={getImageUrl(images[currentImageIndex])}
+                alt={`review-img-${currentImageIndex}`}
+                className="slider-image"
+              />
+              {images.length > 1 && (
+                <>
+                  <button className="prev-btn" onClick={prevImage}>◀</button>
+                  <button className="next-btn" onClick={nextImage}>▶</button>
+                </>
+              )}
+            </>
+          ) : (
+            <img
+              src="https://via.placeholder.com/400x200?text=No+Image"
+              alt="placeholder"
+              className="slider-image"
+            />
+          )}
         </div>
       </Link>
 
       <div className="reviewcontent">
         <div className="nameadd">
           <h2>{placeName}</h2>
-          <p className="location">{location}</p>
+          <div className="location">
+            <img src={locationIcon} alt="location icon" className="location-icon" />
+            {location}
+          </div>
         </div>
 
         <p className="review-text clamped">{reviewText}</p>

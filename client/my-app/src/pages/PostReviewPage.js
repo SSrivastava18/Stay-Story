@@ -13,7 +13,7 @@ const PostReviewPage = () => {
     location: "",
     reviewText: "",
     rating: "",
-    image: null,
+    images: [],
     priceRange: "",
     roomType: "",
     facilities: [],
@@ -57,10 +57,10 @@ const PostReviewPage = () => {
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files);
     setData((prevData) => ({
       ...prevData,
-      image: file,
+      images: [...prevData.images, ...files],
     }));
   };
 
@@ -69,11 +69,11 @@ const PostReviewPage = () => {
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
-      if (key === "image" && data.image) {
-        formData.append("image", data.image);
+      if (key === "images" && data.images.length > 0) {
+        data.images.forEach((img) => formData.append("images", img));
       } else if (key === "facilitiesRating") {
-        Object.entries(data.facilitiesRating).forEach(([ratingKey, ratingValue]) => {
-          formData.append(`facilitiesRating[${ratingKey}]`, ratingValue);
+        Object.entries(data.facilitiesRating).forEach(([k, v]) => {
+          formData.append(`facilitiesRating[${k}]`, v);
         });
       } else if (Array.isArray(data[key])) {
         data[key].forEach((item) => formData.append(`${key}[]`, item));
@@ -92,14 +92,12 @@ const PostReviewPage = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-
-        // Reset form
         setData({
           name: "",
           location: "",
           reviewText: "",
           rating: "",
-          image: null,
+          images: [],
           priceRange: "",
           roomType: "",
           facilities: [],
@@ -133,10 +131,26 @@ const PostReviewPage = () => {
         <textarea name="reviewText" value={data.reviewText} onChange={handleChange} required></textarea>
 
         <label>Rating (0-5)</label>
-        <input type="number" name="rating" value={data.rating} onChange={handleChange} min="0" max="5" required />
+        <input
+          type="number"
+          name="rating"
+          value={data.rating}
+          onChange={handleChange}
+          min="0"
+          max="5"
+          required
+        />
 
-        <label>Upload Image</label>
-        <input type="file" accept="image/*" onChange={handleImageUpload} />
+        <label>Upload Images</label>
+        <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+
+        {data.images.length > 0 && (
+          <div className="image-preview-container">
+            {data.images.map((img, index) => (
+              <img key={index} src={URL.createObjectURL(img)} alt={`preview-${index}`} />
+            ))}
+          </div>
+        )}
 
         <label>Price Range</label>
         <input type="text" name="priceRange" value={data.priceRange} onChange={handleChange} />
@@ -182,6 +196,7 @@ const PostReviewPage = () => {
         </select>
 
         <h3>Facilities Rating (0-5)</h3>
+
         <label>Cleanliness</label>
         <input
           type="number"

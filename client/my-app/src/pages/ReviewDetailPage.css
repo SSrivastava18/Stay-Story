@@ -201,6 +201,21 @@
   font-size: 24px;
   color: #facc15;
 }
+.slider-image.single {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.image-count {
+  text-align: center;
+  margin-top: 8px;
+  color: #facc15;
+  font-size: 14px;
+}
+
 
  @media (max-width: 768px) {
   .flex-layout {
@@ -226,3 +241,18 @@
   color: #e2e8f0;
   line-height: 1.6;
 }
+.more-pics-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.more-pics-btn:hover {
+  background-color: #2563eb;
+}
+

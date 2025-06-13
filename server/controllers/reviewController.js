@@ -47,13 +47,19 @@ module.exports.getReviewData = async (req, res) => {
 // Add a new review
 module.exports.addReview = async (req, res) => {
   try {
-    const file = req.files?.image;
+    const files = Array.isArray(req.files?.images)
+      ? req.files.images
+      : [req.files?.images].filter(Boolean);
 
-    if (!file) {
-      return res.status(400).json({ success: false, message: "Image file is required." });
+    if (!files.length) {
+      return res.status(400).json({ success: false, message: "At least one image is required." });
     }
 
-    const uploadResult = await cloudinary.uploader.upload(file.tempFilePath);
+    const uploadedImages = [];
+    for (const file of files) {
+      const result = await cloudinary.uploader.upload(file.tempFilePath);
+      uploadedImages.push({ url: result.secure_url, filename: result.public_id });
+    }
 
     const facilities = Array.isArray(req.body["facilities[]"])
       ? req.body["facilities[]"]
@@ -71,12 +77,7 @@ module.exports.addReview = async (req, res) => {
       location: req.body.location.trim(),
       reviewText: req.body.reviewText.trim(),
       rating: req.body.rating,
-      image: [
-        {
-          url: uploadResult.secure_url,
-          filename: uploadResult.public_id,
-        },
-      ],
+      image: uploadedImages,
       user: req.user.id,
       priceRange: req.body.priceRange,
       roomType: req.body.roomType,
@@ -95,11 +96,10 @@ module.exports.addReview = async (req, res) => {
     });
   } catch (error) {
     console.error("Error adding review:", error);
-    let message = "Error occurred while saving the review.";
-    if (error.name === "ValidationError") {
-      message = Object.values(error.errors).map((err) => err.message).join(", ");
-    }
-    res.status(500).json({ success: false, message });
+    res.status(500).json({
+      success: false,
+      message: "Error occurred while saving the review.",
+    });
   }
 };
 
@@ -425,3 +425,5 @@ module.exports.getMyReviews = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+

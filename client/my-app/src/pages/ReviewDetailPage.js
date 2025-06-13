@@ -14,7 +14,8 @@ const ReviewDetailPage = () => {
   const [similarReviews, setSimilarReviews] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
   const { user, token } = useContext(StoreContext);
-  const sliderRef = useRef(null);
+  const fileInputRef = useRef();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const fetchReview = async () => {
     try {
@@ -39,6 +40,49 @@ const ReviewDetailPage = () => {
     fetchSimilarReviews();
   }, [id]);
 
+  const scrollImage = (direction) => {
+    if (!review?.image?.length) return;
+    const maxIndex = review.image.length - 1;
+    setCurrentImageIndex((prev) => {
+      if (direction === "left") return prev === 0 ? maxIndex : prev - 1;
+      else return prev === maxIndex ? 0 : prev + 1;
+    });
+  };
+
+  const handleFileChange = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    const formData = new FormData();
+    files.forEach((file) => formData.append("images", file));
+
+    try {
+      const res = await axios.post(
+        `http://localhost:2000/review/${id}/images`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.success && res.data.updatedImages) {
+        setReview((prev) => ({
+          ...prev,
+          image: res.data.updatedImages,
+        }));
+        toast.success("Images uploaded successfully!");
+      } else {
+        toast.error("Failed to upload images.");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Error uploading images.");
+    }
+  };
+
   const handleDelete = async () => {
     try {
       const res = await axios.delete(`http://localhost:2000/review/${id}`, {
@@ -56,16 +100,9 @@ const ReviewDetailPage = () => {
     }
   };
 
-  const scrollImage = (direction) => {
-    if (sliderRef.current) {
-      const scrollAmount = direction === "left" ? -300 : 300;
-      sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
+  const isAuthor = user && review?.user === user.id;
 
   if (!review) return <h2>Loading...</h2>;
-
-  const isAuthor = user && review.user === user.id;
 
   return (
     <div className="review-detail-container">
@@ -73,16 +110,20 @@ const ReviewDetailPage = () => {
         <div className="review-left">
           <div className="image-slider-wrapper">
             <button className="slider-arrow left" onClick={() => scrollImage("left")}>&#9664;</button>
-            <div className="image-slider" ref={sliderRef}>
-              {Array.isArray(review.image) &&
-                review.image.map((img, i) =>
-                  img?.url ? (
-                    <img key={i} src={img.url} alt={`review-${i}`} className="slider-image" />
-                  ) : null
-                )}
-            </div>
+            {review.image?.[currentImageIndex]?.url && (
+              <img
+                src={review.image[currentImageIndex].url}
+                alt={`review-${currentImageIndex}`}
+                className="slider-image single"
+              />
+            )}
             <button className="slider-arrow right" onClick={() => scrollImage("right")}>&#9654;</button>
           </div>
+          {review.image?.length > 1 && (
+            <p className="image-count">
+              {currentImageIndex + 1} / {review.image.length}
+            </p>
+          )}
           <h1 className="review-title below-image">{review.name}</h1>
 
           <div className="comment-wrapper">
@@ -97,9 +138,7 @@ const ReviewDetailPage = () => {
                 “A good stay is not just about the bed you sleep in, but the comfort you feel, the people you meet, and the memories you make.”
               </p>
             </div>
-
           </div>
-
 
           <div className="info-row">
             <div className="info-col">
@@ -137,6 +176,14 @@ const ReviewDetailPage = () => {
             <div className="review-buttons">
               <button className="edit-btn" onClick={() => navigate(`/edit-review/${id}`)}>Edit</button>
               <button className="delete-btn" onClick={handleDelete}>Delete</button>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
             </div>
           )}
         </div>

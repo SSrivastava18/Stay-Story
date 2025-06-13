@@ -1,93 +1,173 @@
+/* PostReviewPage.css - Styled to match dark theme with improved layout */
 
 .add-review-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 90px 20px 20px 20px; 
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 100px auto 40px;
+  padding: 40px;
+  background-color: #1e293b;
+  border-radius: 16px;
+  color: #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  width: 90%;
 }
 
-
+/* 📝 Intro text at top */
+.add-review-container::before {
+  content: "Make your StayStory — share your experience and let the world know your story!";
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  color: #facc15;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
 
 .review-form {
-    display: flex;
-    flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-
 .review-form label {
-    font-weight: bold;
-    margin-top: 15px;
-    font-size: 14px;
-    color: #333;
+  font-weight: 600;
+  font-size: 15px;
+  color: #facc15;
+  grid-column: span 2;
 }
 
 .review-form input,
 .review-form select,
 .review-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  grid-column: span 2;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.review-form textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 .review-form input:focus,
 .review-form select:focus,
 .review-form textarea:focus {
-    border-color: #007bff;
+  border-color: #facc15;
 }
-
-
-.review-form textarea {
-    resize: vertical;
-    height: 100px;
-}
-
 
 .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  width: 100%;
 }
 
 .checkbox-group label {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #e2e8f0;
+  background-color: #0f172a;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #334155;
 }
-
-
-.checkbox-group input {
-    margin-right: 5px;
-}
-
 
 h3 {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #007bff;
+  grid-column: span 2;
+  color: #38bdf8;
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 4px;
 }
+
 .review-form button {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
+  grid-column: span 2;
+  margin-top: 20px;
+  padding: 14px;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .review-form button:hover {
-    background-color: #0056b3;
+  background-color: #2563eb;
 }
 
+.image-preview-container {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.image-preview-container img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+@media (max-width: 768px) {
+  .review-form {
+    grid-template-columns: 1fr;
+  }
+
+  .review-form label,
+  .review-form input,
+  .review-form select,
+  .review-form textarea,
+  .review-form button,
+  .checkbox-group,
+  h3,
+  .image-preview-container {
+    grid-column: span 1;
+  }
+
+  .add-review-container::before {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
+  .add-review-container {
+    padding: 24px 16px;
+    margin: 80px 8px 30px;
+    width: 95%;
+  }
+
+  .review-form input,
+  .review-form select,
+  .review-form textarea,
+  .review-form button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+}
