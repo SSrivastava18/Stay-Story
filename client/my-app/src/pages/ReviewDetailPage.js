@@ -6,6 +6,7 @@ import { StoreContext } from "../StoreContext";
 import "./ReviewDetailPage.css";
 import CommentSection from "../components/CommentSection";
 import Reviewcard from "../components/Reviewcard";
+import MapComponent from "../components/MapComponent";
 
 const ReviewDetailPage = () => {
   const { id } = useParams();
@@ -132,13 +133,13 @@ const ReviewDetailPage = () => {
         </div>
 
         <div className="review-info">
-          <div className="review-text-card">
-            <div className="quote-box">
+          {/* <div className="review-text-card"> */}
+            {/* <div className="quote-box">
               <p className="quote-text">
                 “A good stay is not just about the bed you sleep in, but the comfort you feel, the people you meet, and the memories you make.”
               </p>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
 
           <div className="info-row">
             <div className="info-col">
@@ -171,6 +172,7 @@ const ReviewDetailPage = () => {
             <h3>Review</h3>
             <p>{review.reviewText}</p>
           </div>
+<MapComponent location={review.location} />
 
           {isAuthor && (
             <div className="review-buttons">

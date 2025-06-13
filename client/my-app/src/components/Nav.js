@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../StoreContext";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import menu from "../icons/menu.png"; // ✅ Correct import path
+
 
 const Nav = ({ setshowLogin }) => {
 	const { token, setToken, setUser, user } = useContext(StoreContext);
@@ -59,7 +61,7 @@ const Nav = ({ setshowLogin }) => {
 
 			{/* Hamburger (for mobile) */}
 			<div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-				<img src="ham.png" alt="menu" height="50px" />
+			<img src={menu} alt="menu icon" className="menu-icon" />
 			</div>
 
 			{/* Mobile Menu */}

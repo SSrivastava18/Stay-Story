@@ -7,7 +7,8 @@ module.exports.getComments = async (req, res) => {
     const { id } = req.params;
 
     // Fetch the comments and populate the user field
-    const comments = await Comment.find({ review: id }).populate("user", "username");
+    const comments = await Comment.find({ review: id }).populate("user", "name");
+
 
     // Log to check if user data is being populated
     console.log("Comments with populated user:", comments);
@@ -18,7 +19,7 @@ module.exports.getComments = async (req, res) => {
       review: comment.review,
       content: comment.content,
       userId: comment.user ? comment.user._id : null,  // Ensure user exists before accessing _id
-      username: comment.user && comment.user.username ? comment.user.username : "Anonymous",  // Fallback username
+      username: comment.user && comment.user.name ? comment.user.name : "Anonymous"
     }));
 
     res.json({ success: true, comments: formatted });
@@ -47,7 +48,8 @@ module.exports.addComment = async (req, res) => {
     await newComment.save();
 
     // Populate the newly added comment to include the username
-    const populatedComment = await Comment.findById(newComment._id).populate("user", "username");
+    const populatedComment = await Comment.findById(newComment._id).populate("user", "name")
+      ;
 
     // Log to check the populated user
     console.log("Populated comment with user:", populatedComment);
@@ -59,7 +61,7 @@ module.exports.addComment = async (req, res) => {
         review: populatedComment.review,
         content: populatedComment.content,
         userId: req.user.id,
-        username: populatedComment.user && populatedComment.user.username ? populatedComment.user.username : "Anonymous",  // Fallback if username missing
+username: comment.user && comment.user.name ? comment.user.name : "Anonymous"
       },
     });
   } catch (error) {
@@ -70,17 +72,18 @@ module.exports.addComment = async (req, res) => {
 
 module.exports.updateComment = async (req, res) => {
   try {
-    const comment = await Comment.findById(req.params.commentId);
+    const comment = await Comment.findById(req.params.commentId).populate("user", "name")
+      ;
+
     if (!comment) return res.status(404).json({ message: "Comment not found" });
 
-    if (comment.user.toString() !== req.user.id) {
+    if (comment.user._id.toString() !== req.user.id) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
     comment.content = req.body.content;
     await comment.save();
 
-    // Return the updated comment with the username (directly from populated comment)
     res.status(200).json({
       success: true,
       message: "Comment updated",
@@ -88,8 +91,8 @@ module.exports.updateComment = async (req, res) => {
         _id: comment._id,
         review: comment.review,
         content: comment.content,
-        userId: comment.user,
-        username: comment.user && comment.user.username ? comment.user.username : "Anonymous",  // Fallback if username missing
+        userId: comment.user._id,
+        username: comment.user && comment.user.name ? comment.user.name : "Anonymous"
       },
     });
   } catch (error) {
@@ -97,6 +100,7 @@ module.exports.updateComment = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 module.exports.deleteComment = async (req, res) => {
   try {

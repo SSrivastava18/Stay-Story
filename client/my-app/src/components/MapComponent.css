@@ -1,0 +1,70 @@
+.map-container-wrapper {
+  width: 100%;
+  max-width: 900px;
+  height: 450px;
+  margin: 40px auto 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.map-container-wrapper:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+}
+
+.map-loading,
+.map-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ef4444; /* Tailwind Red-500 */
+  background-color: #f9fafb; /* Light background */
+  text-align: center;
+}
+
+.google-maps-button-container {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.google-maps-button {
+  background-color: #3b82f6; /* Tailwind Blue-500 */
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+.google-maps-button:hover {
+  background-color: #2563eb; /* Tailwind Blue-600 */
+  transform: translateY(-1px);
+}
+
+.google-maps-button:active {
+  transform: translateY(1px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .map-container-wrapper {
+    height: 350px;
+    margin: 20px 16px;
+  }
+
+  .google-maps-button {
+    width: 80%;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+}

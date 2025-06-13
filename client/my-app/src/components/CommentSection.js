@@ -99,8 +99,10 @@ const CommentSection = ({ reviewId }) => {
 					<li key={c._id}>
 						<div className="comment-content">
 							<div className="author">
-								@{c.username || "User"}
+								@{c.username || (user && c.userId === user.id ? user.name : "Anonymous")}
 							</div>
+
+
 							{editingCommentId === c._id ? (
 								<>
 									<textarea
@@ -112,6 +114,7 @@ const CommentSection = ({ reviewId }) => {
 							) : (
 								<div className="text">{c.content}</div>
 							)}
+
 							{user?.id === c.userId && (
 								<div className="comment-actions">
 									<button onClick={() => handleEdit(c._id, c.content)}>Edit</button>
@@ -138,7 +141,6 @@ const CommentSection = ({ reviewId }) => {
 				</form>
 			)}
 		</div>
-		//ti do
 	);
 };
 
