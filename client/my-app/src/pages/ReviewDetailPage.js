@@ -8,6 +8,10 @@ import CommentSection from "../components/CommentSection";
 import Reviewcard from "../components/Reviewcard";
 import MapComponent from "../components/MapComponent";
 
+import { FaBuilding, FaStar, FaMapMarkerAlt, FaCheckCircle, FaClipboardList } from 'react-icons/fa';
+
+
+
 const ReviewDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -133,26 +137,20 @@ const ReviewDetailPage = () => {
         </div>
 
         <div className="review-info">
-          {/* <div className="review-text-card"> */}
-            {/* <div className="quote-box">
-              <p className="quote-text">
-                “A good stay is not just about the bed you sleep in, but the comfort you feel, the people you meet, and the memories you make.”
-              </p>
-            </div> */}
-          {/* </div> */}
-
           <div className="info-row">
             <div className="info-col">
-              <h3 className="fs">Facilities:</h3>
+              {/* Added icon for Facilities */}
+              <h3 className="fs"><FaBuilding className="icon" /> Facilities:</h3>
               <ul>
                 {review.facilities.map((facility, index) => (
-                  <li key={index}>{facility}</li>
+                  <li key={index}><FaCheckCircle className="icon-list-item" /> {facility}</li>
                 ))}
               </ul>
             </div>
 
             <div className="info-col">
-              <h3 className="fac">Facilities Ratings:</h3>
+              {/* Added icon for Facilities Ratings */}
+              <h3 className="fac"><FaStar className="icon" /> Facilities Ratings:</h3>
               <ul>
                 {Object.entries(review.facilitiesRating).map(([key, value], index) => (
                   <li key={index}><strong>{key}:</strong> {value}/5</li>
@@ -161,7 +159,8 @@ const ReviewDetailPage = () => {
             </div>
 
             <div className="info-col meta-column">
-              <p><strong>Location:</strong> {review.location}</p>
+              {/* Added icon for Location */}
+              <p><strong><FaMapMarkerAlt className="icon-inline" /> Location:</strong> {review.location}</p>
               <p><strong>Rating:</strong> ⭐ {review.rating}/5</p>
               <p><strong>Price Range:</strong> {review.priceRange}</p>
               <p><strong>Room Type:</strong> {review.roomType}</p>
@@ -172,7 +171,7 @@ const ReviewDetailPage = () => {
             <h3>Review</h3>
             <p>{review.reviewText}</p>
           </div>
-<MapComponent location={review.location} />
+          <MapComponent location={review.location} />
 
           {isAuthor && (
             <div className="review-buttons">

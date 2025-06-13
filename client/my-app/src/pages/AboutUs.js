@@ -1,6 +1,7 @@
 import React from "react";
 import "./AboutUs.css";
 import { Link } from "react-router-dom";
+import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 
 const AboutUs = () => {
 	return (
@@ -62,8 +63,7 @@ const AboutUs = () => {
 				<section className="about-section">
 					<h2>Meet the Team</h2>
 					<p>
-						<strong>Saurabh Srivastava</strong> – Co-Founder, Full-Stack
-						Developer
+						<strong>Saurabh Srivastava</strong> – Co-Founder, Full-Stack Developer
 					</p>
 					<p>
 						<strong>Raushan Gupta</strong> – Co-Founder, Full-Stack Developer
@@ -72,27 +72,17 @@ const AboutUs = () => {
 						We are passionate Computer Science students dedicated to leveraging
 						technology to solve real-world problems. Having personally
 						experienced the challenges and uncertainties involved in finding
-						safe and affordable student housing, we founded{" "}
-						<strong>StayStory</strong> to create a transparent and reliable
-						platform. Our goal is to empower students across the country to make
-						confident decisions about their accommodations through authentic
-						reviews and community-driven insights.
+						safe and affordable student housing, we founded <strong>StayStory</strong> to create a
+						transparent and reliable platform.
 					</p>
 					<p>
 						Through StayStory, we aim to foster a supportive community that
-						bridges the gap between students and trustworthy housing options,
-						ensuring everyone finds a comfortable second home when relocating
-						for their studies.
+						bridges the gap between students and trustworthy housing options.
 					</p>
 				</section>
 
 				<section className="about-section">
 					<h2>Contact Us</h2>
-					<p>
-						Have a question, suggestion, or just want to connect? We’d love to
-						hear from you. Feel free to reach out through any of the following
-						channels:
-					</p>
 
 					<p>
 						<strong>Raushan Gupta</strong> – Co-Founder
@@ -103,13 +93,18 @@ const AboutUs = () => {
 						</a>
 						<br />
 						<strong>LinkedIn:</strong>{" "}
-						<a href="https://www.linkedin.com/in/raushangupta16/" target="_blank">
-							linkedin.com/in/raushangupta
+						<a href="https://www.linkedin.com/in/raushangupta16/" target="_blank" rel="noopener noreferrer">
+							<FaLinkedin /> linkedin.com/in/raushangupta
 						</a>
 						<br />
 						<strong>GitHub:</strong>{" "}
-						<a href="https://github.com/RaushanGupta1516" target="_blank">
-							github.com/raushangupta
+						<a href="https://github.com/RaushanGupta1516" target="_blank" rel="noopener noreferrer">
+							<FaGithub /> github.com/raushangupta
+						</a>
+						<br />
+						<strong>Twitter:</strong>{" "}
+						<a href="https://twitter.com/raushangupta16" target="_blank" rel="noopener noreferrer">
+							<FaTwitter /> twitter.com/raushangupta16
 						</a>
 					</p>
 
@@ -117,16 +112,23 @@ const AboutUs = () => {
 						<strong>Saurabh Srivastava</strong> – Co-Founder
 						<br />
 						<strong>Email:</strong>{" "}
-						<a href="mailto:saurabh@staystory.in">saurabh@staystory.in</a>
+						<a href="mailto:saurabh@staystory.in">
+							saurabh@staystory.in
+						</a>
 						<br />
 						<strong>LinkedIn:</strong>{" "}
-						<a href="https://www.linkedin.com/in/saurabh" target="_blank">
-							linkedin.com/in/saurabh
+						<a href="https://www.linkedin.com/in/saurabh" target="_blank" rel="noopener noreferrer">
+							<FaLinkedin /> linkedin.com/in/saurabh
 						</a>
 						<br />
 						<strong>GitHub:</strong>{" "}
-						<a href="https://github.com/saurabh" target="_blank">
-							github.com/saurabh
+						<a href="https://github.com/saurabh" target="_blank" rel="noopener noreferrer">
+							<FaGithub /> github.com/saurabh
+						</a>
+						<br />
+						<strong>Twitter:</strong>{" "}
+						<a href="https://twitter.com/saurabh" target="_blank" rel="noopener noreferrer">
+							<FaTwitter /> twitter.com/saurabh
 						</a>
 					</p>
 				</section>

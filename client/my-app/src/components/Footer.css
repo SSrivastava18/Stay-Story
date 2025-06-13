@@ -21,6 +21,21 @@
 	gap: 2.5rem;
 	padding: 0 1rem;
 }
+.footer-social a {
+	margin-right: 15px;
+	font-size: 24px;
+	color: #ffffff;
+	transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+	color: #3b82f6;
+}
+
+.footer-icon {
+	vertical-align: middle;
+}
+
 
 @media (min-width: 768px) {
 	.footer-content {

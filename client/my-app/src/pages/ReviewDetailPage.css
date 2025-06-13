@@ -215,6 +215,28 @@
   color: #facc15;
   font-size: 14px;
 }
+/* In your ReviewDetailPage.css */
+
+.icon {
+  margin-right: 8px; /* Space between icon and text */
+  vertical-align: middle; /* Align icon vertically with text */
+  font-size: 1.1em; /* Adjust size if needed */
+  /* color: #yourAccentColor; */ /* Example: color: #007bff; */
+}
+
+.icon-list-item {
+  margin-right: 5px;
+  vertical-align: middle;
+  font-size: 0.9em;
+  /* color: #28a745; */ /* Example: green for checkmarks */
+}
+
+.icon-inline {
+  margin-right: 5px;
+  vertical-align: text-bottom; /* or middle, top, etc. */
+  font-size: 1em;
+  /* color: #dc3545; */ /* Example: a different color */
+}
 
 
  @media (max-width: 768px) {
