@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../StoreContext";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import menu from "../icons/menu.png"; // ✅ Correct import path
+import menu from "../icons/menu.png"; 
 import logo from "../icons/logo.png";
 
 

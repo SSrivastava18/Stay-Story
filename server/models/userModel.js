@@ -13,10 +13,12 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    googleId: {
-        type: String,
-        default: null,
-    },
+   googleId: {
+    type: String,
+    unique: true, // If you intend it to be unique when present
+    sparse: true, // Add this
+    default: null,
+},
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
