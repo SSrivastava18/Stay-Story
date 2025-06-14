@@ -41,15 +41,14 @@ module.exports.addComment = async (req, res) => {
 
     const newComment = new Comment({
       review: id,
-      user: req.user.id,  // Ensure the user is logged in before posting
+      user: req.user.id, // Ensure the user is logged in before posting
       content,
     });
 
     await newComment.save();
 
     // Populate the newly added comment to include the username
-    const populatedComment = await Comment.findById(newComment._id).populate("user", "name")
-      ;
+    const populatedComment = await Comment.findById(newComment._id).populate("user", "name");
 
     // Log to check the populated user
     console.log("Populated comment with user:", populatedComment);
@@ -61,7 +60,7 @@ module.exports.addComment = async (req, res) => {
         review: populatedComment.review,
         content: populatedComment.content,
         userId: req.user.id,
-username: comment.user && comment.user.name ? comment.user.name : "Anonymous"
+        username: populatedComment.user && populatedComment.user.name ? populatedComment.user.name : "Anonymous"
       },
     });
   } catch (error) {
