@@ -3,10 +3,12 @@ import axios from "axios";
 import "./PostReviewPage.css";
 import { toast } from "react-toastify";
 import { StoreContext } from "../StoreContext";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const PostReviewPage = () => {
   const url = "http://localhost:2000";
   const { token } = useContext(StoreContext);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [data, setData] = useState({
     name: "",
@@ -64,6 +66,13 @@ const PostReviewPage = () => {
     }));
   };
 
+  const handleImageRemove = (indexToRemove) => {
+    setData((prevData) => ({
+      ...prevData,
+      images: prevData.images.filter((_, index) => index !== indexToRemove),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -92,6 +101,9 @@ const PostReviewPage = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
+        // Redirect to home page after successful submission
+        navigate('/'); // Added this line
+
         setData({
           name: "",
           location: "",
@@ -147,7 +159,16 @@ const PostReviewPage = () => {
         {data.images.length > 0 && (
           <div className="image-preview-container">
             {data.images.map((img, index) => (
-              <img key={index} src={URL.createObjectURL(img)} alt={`preview-${index}`} />
+              <div key={index} className="image-preview-item">
+                <img src={URL.createObjectURL(img)} alt={`preview-${index}`} />
+                <button
+                  type="button"
+                  className="remove-image-btn"
+                  onClick={() => handleImageRemove(index)}
+                >
+                  &times;
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -183,16 +204,16 @@ const PostReviewPage = () => {
         <select name="pgType" value={data.pgType} onChange={handleChange}>
           <option value="">Select</option>
           <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Co-ed">Co-ed</option>
+            <option value="Female">Female</option>
+            <option value="Co-ed">Co-ed</option>
         </select>
 
         <label>Preferred Tenant</label>
         <select name="preferredTenant" value={data.preferredTenant} onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="Students">Students</option>
-          <option value="Working Professionals">Working Professionals</option>
-          <option value="Both">Both</option>
+            <option value="">Select</option>
+            <option value="Students">Students</option>
+            <option value="Working Professionals">Working Professionals</option>
+            <option value="Both">Both</option>
         </select>
 
         <h3>Facilities Rating (0-5)</h3>

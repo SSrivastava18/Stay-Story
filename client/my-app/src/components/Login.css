@@ -1,108 +1,220 @@
-
-
+/* Login Overlay and Container */
 .login-overlay {
-	position: fixed;
-	inset: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 50;
-	padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other content */
+    backdrop-filter: blur(5px); /* Optional: Adds a blur effect to the background */
 }
-
 
 .login-container {
-	background: white;
-	width: 350px;
-	max-width: 100%;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	position: relative;
+    background: #1e293b; /* Dark background, similar to info cards */
+    padding: 30px;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
+    width: 90%; /* Responsive width */
+    max-width: 450px; /* Max width for desktop */
+    position: relative;
+    color: #e2e8f0; /* Light text color */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    border: 1px solid #334155; /* Subtle border */
 }
 
-
+/* Close Button */
 .close-btn {
-	position: absolute;
-	top: 10px;
-	right: 15px;
-	font-size: 24px;
-	border: none;
-	background: none;
-	cursor: pointer;
-	color: black;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #e2e8f0; /* Light color */
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
+.close-btn:hover {
+    color: #facc15; /* Accent color on hover */
+}
 
+/* Title */
 .login-title {
-	font-size: 22px;
-	font-weight: bold;
-	text-align: center;
+    font-size: 2em;
+    color: #facc15; /* Accent color for title */
+    margin-bottom: 25px;
+    font-weight: bold;
+    text-align: center;
 }
 
+/* Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Form takes full width of container */
+    gap: 15px; /* Space between form elements */
+    /* No need for specific centering here if inputs are 100% width,
+       as they will naturally align to the container's center alignment. */
+}
 
+/* Input Fields */
 .input-field {
-	width: 100%;
-	height: 40px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 8px;
-	font-size: 14px;
-	outline: none;
-	transition: border-color 0.3s;
+    padding: 14px 15px;
+    border: 1px solid #334155; /* Darker border */
+    border-radius: 8px; /* Rounded input fields */
+    background-color: #0f172a; /* Even darker input background */
+    color: #e2e8f0; /* Light text color */
+    font-size: 1em;
+    outline: none; /* Remove default outline */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* Ensuring inputs are block-level to take full width and handle margins if needed */
+    display: block;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.input-field::placeholder {
+    color: #94a3b8; /* Lighter placeholder text */
 }
 
 .input-field:focus {
-	border-color: #f97316;
+    border-color: #facc15; /* Accent border on focus */
+    box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.3); /* Subtle glow */
 }
 
+/* Login/Create Account Button */
 .login-btn {
-	width: 100%;
-	height: 40px;
-	background-color: #f97316;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s;
+    background-color: #facc15; /* Accent color for button */
+    color: #000; /* Black text on accent color */
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 5px; /* Space above the button */
+    width: 100%; /* Ensure button also takes full width for consistent alignment */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .login-btn:hover {
-	background-color: #ea580c;
+    background-color: #eab308; /* Slightly darker accent on hover */
+    transform: translateY(-1px); /* Slight lift effect */
 }
 
+/* Google Login Button (via @react-oauth/google) */
+/* The GoogleLogin component is an iframe/shadow DOM, making direct styling challenging.
+   The best approach for visual centering is often to wrap it in a div if needed,
+   but its default rendering usually makes it self-contained.
+   We'll ensure the margin is correct for spacing. */
+.login-form > div:has(button[aria-label="Sign in with Google"]) {
+    margin-top: 15px; /* Adjust spacing above the Google button */
+    display: flex; /* Use flexbox to center the Google button if it doesn't take full width */
+    justify-content: center; /* Center the Google button horizontally */
+    width: 100%; /* Ensure the container for the Google button takes full width */
+}
+
+
+/* Terms and Policy */
 .terms-container {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px; /* Space above terms */
+    font-size: 0.9em;
+    color: #cbd5e1;
+    width: 100%; /* Ensure it also takes full width */
+    justify-content: center; /* Center content if it's narrower than 100% */
+    text-align: center; /* Ensure text inside is also centered */
 }
 
 .checkbox {
-	width: 16px;
-	height: 16px;
-	cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #facc15; /* Accent color for checkbox */
+    border-radius: 4px; /* Slightly rounded checkbox */
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
 }
 
 
+/* Toggle Text (Already have an account? / Create an Account?) */
 .toggle-text {
-	text-align: center;
-	font-size: 14px;
+    margin-top: 20px; /* Space above toggle text */
+    font-size: 0.95em;
+    color: #cbd5e1;
+    text-align: center;
+    width: 100%; /* Ensure it takes full width for consistent centering */
 }
 
 .toggle-link {
-	color: #f97316;
-	cursor: pointer;
-	font-weight: bold;
-	transition: color 0.3s;
+    color: #facc15; /* Accent color for links */
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; /* Remove underline */
+    transition: color 0.2s ease;
 }
 
 .toggle-link:hover {
-	color: #ea580c;
+    color: #eab308; /* Darker accent on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* --- Responsiveness --- */
+
+/* For smaller devices (phones) */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .login-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        padding: 12px 15px;
+        font-size: 0.95em;
+    }
+
+    .login-btn {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+
+    .terms-container,
+    .toggle-text {
+        font-size: 0.85em;
+        margin-top: 15px;
+    }
+
+    .close-btn {
+        font-size: 20px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* For very small devices */
+@media (max-width: 400px) {
+    .login-container {
+        padding: 15px;
+    }
+    .login-title {
+        font-size: 1.6em;
+    }
+    .input-field {
+        font-size: 0.9em;
+    }
+    .login-btn {
+        font-size: 0.95em;
+    }
 }
