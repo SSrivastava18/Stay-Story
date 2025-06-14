@@ -8,8 +8,21 @@ import CommentSection from "../components/CommentSection";
 import Reviewcard from "../components/Reviewcard";
 import MapComponent from "../components/MapComponent";
 
-import { FaBuilding, FaStar, FaMapMarkerAlt, FaCheckCircle, FaClipboardList } from 'react-icons/fa';
-
+// Import additional icons
+import {
+    FaStar,
+    FaMapMarkerAlt,
+    FaCheckCircle,
+    FaBroom,         // For cleanliness
+    FaUtensils,      // For food
+    FaShieldAlt,     // For security
+    FaWifi,          // For internet
+    FaRupeeSign,     // For Price Range
+    FaBed,           // For Room Type
+    FaParking,       // For Parking
+    FaDumbbell,      // For Gym
+    FaHandsWash      // For Laundry
+} from 'react-icons/fa';
 
 
 const ReviewDetailPage = () => {
@@ -138,32 +151,97 @@ const ReviewDetailPage = () => {
 
         <div className="review-info">
           <div className="info-row">
-            <div className="info-col">
-              {/* Added icon for Facilities */}
-              <h3 className="fs"><FaBuilding className="icon" /> Facilities:</h3>
-              <ul>
-                {review.facilities.map((facility, index) => (
-                  <li key={index}><FaCheckCircle className="icon-list-item" /> {facility}</li>
-                ))}
-              </ul>
+            <div className="info-col facilities-section">
+              <h3 className="section-heading">What this place offers:</h3>
+              <div className="facilities-grid">
+                {review.facilities.map((facility, index) => {
+                    let FacilityIconComponent;
+                    // Conditionally select icon based on the facility name
+                    switch (facility.toLowerCase()) {
+                        case 'wifi':
+                            FacilityIconComponent = FaWifi;
+                            break;
+                        case 'meals':
+                            FacilityIconComponent = FaUtensils;
+                            break;
+                        case 'parking':
+                            FacilityIconComponent = FaParking;
+                            break;
+                        case 'gym':
+                            FacilityIconComponent = FaDumbbell;
+                            break;
+                        case 'laundry':
+                            FacilityIconComponent = FaHandsWash;
+                            break;
+                        default:
+                            FacilityIconComponent = FaCheckCircle; // Default icon
+                    }
+                    return (
+                        <div key={index} className="facility-item">
+                            <FacilityIconComponent className="facility-icon" />
+                            <p className="facility-text">{facility}</p>
+                        </div>
+                    );
+                })}
+              </div>
             </div>
 
-            <div className="info-col">
-              {/* Added icon for Facilities Ratings */}
-              <h3 className="fac"><FaStar className="icon" /> Facilities Ratings:</h3>
-              <ul>
-                {Object.entries(review.facilitiesRating).map(([key, value], index) => (
-                  <li key={index}><strong>{key}:</strong> {value}/5</li>
-                ))}
-              </ul>
+            <div className="info-col ratings-section">
+              <h3 className="section-heading">Facilities Ratings:</h3>
+              <div className="ratings-grid">
+                {Object.entries(review.facilitiesRating).map(([key, value], index) => {
+                    let IconComponent;
+                    switch (key.toLowerCase()) {
+                        case 'cleanliness':
+                            IconComponent = FaBroom;
+                            break;
+                        case 'food':
+                            IconComponent = FaUtensils;
+                            break;
+                        case 'security':
+                            IconComponent = FaShieldAlt;
+                            break;
+                        case 'internet':
+                            IconComponent = FaWifi;
+                            break;
+                        default:
+                            IconComponent = FaStar; // Default icon if no specific one is found
+                    }
+                    return (
+                        <div key={index} className="rating-item">
+                            <IconComponent className="rating-icon" />
+                            <p className="rating-category">{key}</p>
+                            <p className="rating-score">{value}/5</p>
+                        </div>
+                    );
+                })}
+              </div>
             </div>
 
             <div className="info-col meta-column">
-              {/* Added icon for Location */}
-              <p><strong><FaMapMarkerAlt className="icon-inline" /> Location:</strong> {review.location}</p>
-              <p><strong>Rating:</strong> ⭐ {review.rating}/5</p>
-              <p><strong>Price Range:</strong> {review.priceRange}</p>
-              <p><strong>Room Type:</strong> {review.roomType}</p>
+                <h3 className="section-heading">About this place:</h3>
+                <div className="meta-grid">
+                    <div className="meta-item">
+                        <FaMapMarkerAlt className="meta-icon" />
+                        <p className="meta-category">Location</p>
+                        <p className="meta-value">{review.location}</p>
+                    </div>
+                    <div className="meta-item">
+                        <FaStar className="meta-icon" />
+                        <p className="meta-category">Rating</p>
+                        <p className="meta-value">{review.rating}/5</p>
+                    </div>
+                    <div className="meta-item">
+                        <FaRupeeSign className="meta-icon" />
+                        <p className="meta-category">Price Range</p>
+                        <p className="meta-value">{review.priceRange}</p>
+                    </div>
+                    <div className="meta-item">
+                        <FaBed className="meta-icon" />
+                        <p className="meta-category">Room Type</p>
+                        <p className="meta-value">{review.roomType}</p>
+                    </div>
+                </div>
             </div>
           </div>
 
@@ -171,7 +249,7 @@ const ReviewDetailPage = () => {
             <h3>Review</h3>
             <p>{review.reviewText}</p>
           </div>
-          <MapComponent location={review.location} />
+ 
 
           {isAuthor && (
             <div className="review-buttons">
@@ -189,6 +267,9 @@ const ReviewDetailPage = () => {
           )}
         </div>
       </div>
+
+      {/* Moved MapComponent outside review-content to be below it */}
+      <MapComponent className="map" location={review.location} />
 
       <div className="recommended-reviews-wrapper">
         <h3 id="similar">You may also like these...</h3>

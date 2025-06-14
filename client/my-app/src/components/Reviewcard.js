@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./Reviewcard.css";
-import locationIcon from "../icons/619.png"; // ✅ Correct import path
+import locationIcon from "../icons/619.png";
 
 const Reviewcard = ({
   id,
@@ -96,6 +96,20 @@ const Reviewcard = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  // Corrected function to truncate location text
+  const truncateLocation = (text, wordLimit) => {
+    if (!text) return "";
+    // Split by one or more spaces, filter out empty strings for robust word counting
+    const words = text.trim().split(/\s+/);
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
+  };
+
+  // Apply truncation for location, using 10 words as specified
+  const displayedLocation = truncateLocation(location, 2); 
+
   return (
     <div className="reviewcard">
       <Link to={`/review/${id}`} className="reviewcard-link">
@@ -129,7 +143,7 @@ const Reviewcard = ({
           <h2>{placeName}</h2>
           <div className="location">
             <img src={locationIcon} alt="location icon" className="location-icon" />
-            {location}
+            {displayedLocation} {/* Use the truncated location here */}
           </div>
         </div>
 

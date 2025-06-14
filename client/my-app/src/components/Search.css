@@ -199,3 +199,72 @@
     margin-right: -10px;
   }
 }
+
+
+/* Previous CSS remains unchanged */
+
+/* === PAGINATION === */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px; /* Space after review cards */
+    padding-bottom: 40px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 10px; /* Space between page numbers */
+}
+
+.page-item {
+    display: inline-block;
+}
+
+.page-link {
+    background-color: #1f2937; /* Dark background */
+    color: #facc15; /* Yellow text */
+    border: 1px solid #374151; /* Border matching input */
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none; /* Remove underline for buttons */
+}
+
+.page-link:hover:not(:disabled) {
+    background-color: #facc15; /* Yellow background on hover */
+    color: #1f2937; /* Dark text on hover */
+    border-color: #facc15;
+}
+
+.page-item.active .page-link {
+    background-color: #facc15; /* Active page background */
+    color: #1f2937; /* Active page text */
+    border-color: #facc15;
+    font-weight: bold;
+}
+
+.page-item.disabled .page-link {
+    background-color: #374151; /* Darker disabled background */
+    color: #6b7280; /* Lighter disabled text */
+    cursor: not-allowed;
+    border-color: #374151;
+}
+
+/* Responsive adjustments for pagination */
+@media (max-width: 768px) {
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .page-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}

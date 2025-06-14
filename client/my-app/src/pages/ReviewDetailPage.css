@@ -1,280 +1,620 @@
 .review-detail-container {
-  padding: 120px 40px;
-  font-family: "Segoe UI", sans-serif;
-  color: #ffffff;
-  background-color: #0f172a;
+    padding: 120px 40px;
+    font-family: "Segoe UI", sans-serif;
+    color: #ffffff;
+    background-color: #0f172a;
 }
 
 .review-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .review-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #facc15;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #facc15;
 }
 
 .image-slider-wrapper {
-  position: relative;
-  width: 100%;
-  height: 360px;
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1e293b;
+    position: relative;
+    width: 100%;
+    height: 360px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e293b;
 }
 
 .slider-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: #facc15;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #facc15;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 2;
 }
 
 .slider-arrow.left {
-  left: 10px;
+    left: 10px;
 }
 .slider-arrow.right {
-  right: 10px;
+    right: 10px;
 }
 
 .image-slider {
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  height: 100%;
-  padding: 8px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    height: 100%;
+    padding: 8px;
 }
 .slider-image {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  border-radius: 12px;
-  margin-right: 10px;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-right: 10px;
+    
 }
 
 .review-info {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    color: #ffffff;
 }
 
 .info-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
 }
+
+/* Ensure the info columns are well-spaced and take appropriate width */
 .info-col {
-  flex: 1 1 30%;
+    flex: 1 1 30%; /* This maintains the side-by-side layout for desktop */
+    min-width: 200px; /* Adjust as needed to prevent squishing */
 }
-.fs,
-.fac {
-  color: #facc15;
+
+/* Style for the section headings (e.g., "What this place offers:") */
+.section-heading {
+    color: #facc15; /* Same accent color */
+    font-size: 1.2em; /* Slightly larger heading */
+    font-weight: bold;
+    margin-bottom: 15px; /* More space below heading */
+    text-align: left; /* Align heading to the left */
+    width: 100%; /* Ensure heading takes full width within its column */
 }
+
+/* --- Facilities Section Styling --- */
+.facilities-section {
+    /* flex: 1; if you want it to grow independently, otherwise info-col handles sizing */
+}
+
+.facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px 10px; /* Vertical gap, horizontal gap */
+    width: 100%; /* Ensure grid takes full width of its container */
+}
+
+.facility-item {
+    display: flex;
+    flex-direction: column; /* Stack icon above text */
+    align-items: center; /* Center icon and text horizontally */
+    text-align: center;
+    padding: 10px;
+}
+
+.facility-icon {
+    font-size: 2.5em; /* Larger icon size as seen in the example */
+    color: #e2e8f0; /* Off-white color for the icon */
+    margin-bottom: 5px; /* Space between icon and text */
+}
+
+.facility-text {
+    font-size: 0.85em; /* Smaller font for text below icon */
+    color: #e2e8f0; /* Off-white color for the text */
+    margin: 0; /* Remove default paragraph margin */
+    line-height: 1.2;
+}
+
+
+/* --- Facilities Ratings Section Styling --- */
+.ratings-section {
+    /* flex: 1; if you want it to grow independently */
+}
+
+.ratings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px; /* Space between rating items */
+    width: 100%; /* Ensure grid takes full width */
+}
+
+.rating-item {
+    display: flex;
+    flex-direction: column; /* Stack icon above text */
+    align-items: center; /* Center content horizontally */
+    text-align: center;
+    padding: 15px 10px; /* More vertical padding for boxy feel */
+    border-radius: 8px;
+    background-color: #1a222f; /* Slightly darker background for rating items */
+    border: 1px solid #334155; /* Subtle border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-sizing: border-box; /* Include padding and border in item's total width/height */
+}
+
+.rating-icon {
+    font-size: 2.2em; /* Large icon size */
+    color: #facc15; /* Accent color for the icon */
+    margin-bottom: 8px; /* Space between icon and category */
+}
+
+.rating-category {
+    font-size: 0.8em; /* Smaller font for category name */
+    font-weight: 500;
+    color: #cbd5e1; /* Light grey for category text */
+    margin: 0 0 4px 0; /* Space between category and score */
+    text-transform: capitalize; /* Capitalize the first letter for consistency */
+}
+
+.rating-score {
+    font-size: 1.1em; /* Larger font for the score */
+    font-weight: bold;
+    color: #facc15; /* Accent color for the score */
+    margin: 0; /* Remove default paragraph margin */
+}
+
+
+/* --- Meta Column Styling --- */
+.meta-column {
+    padding-top: 0;
+    flex-basis: 100%;
+}
+
+/* New styles for the meta-grid and meta-items */
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px 10px;
+    border-radius: 8px;
+    background-color: #1a222f;
+    border: 1px solid #334155;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.meta-icon {
+    font-size: 2.2em;
+    color: #facc15;
+    margin-bottom: 8px;
+}
+
+.meta-category {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #cbd5e1;
+    margin: 0 0 4px 0;
+    text-transform: capitalize;
+}
+
+.meta-value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #facc15;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure the icon-inline class is still defined for other uses if any */
+.icon-inline {
+    margin-right: 5px;
+    vertical-align: middle;
+    font-size: 0.9em;
+    color: #facc15;
+}
+
 
 .review-text-card {
-  background: #1e293b;
-  padding: 16px;
-  border-radius: 10px;
-  border: 1px solid #334155;
-  color: #ffffff;
-  margin-top: 20px;
-  font-size: 15px;
-  line-height: 1.6;
+    background: #1e293b;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    color: #ffffff;
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.6;
 }
 .review-text-card h3 {
-  color: #facc15;
-}
-
-.meta-column p,
-.facilities ul li,
-.ratings-column ul li {
-  color: #e2e8f0;
+    color: #facc15;
 }
 
 .edit-btn {
-  background-color: #facc15;
-  color: #000;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-right: 10px;
-  cursor: pointer;
+    background-color: #facc15;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 .delete-btn {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .review-buttons {
-  margin-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .comment-wrapper {
-  margin-top: 24px;
-  background-color: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 16px;
+    margin-top: 24px;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 16px;
 }
 
 .recommended-reviews-wrapper {
-  margin-top: 60px;
+    margin-top: 100px;
 }
 .recommended-reviews-wrapper h3 {
-  color: #facc15;
-  margin-bottom: 10px;
+    color: #facc15;
+    margin-bottom: 10px;
 }
 .review-card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 .see-more-container {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 .see-more-button {
-  background-color: #facc15;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
+    background-color: #facc15;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
 }
 .see-more-button:hover {
-  background-color: #eab308;
+    background-color: #eab308;
 }
 
-@media (max-width: 768px) {
-  .review-content {
-    grid-template-columns: 1fr;
-  }
-  .image-slider-wrapper {
-    height: 240px;
-  }
-  .slider-image {
-    height: 100%;
-  }
-}
 /* Flex layout to align image + info side by side */
 .flex-layout {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
 }
 
 /* Each side takes equal width */
 .review-left,
 .review-info {
-  flex: 1;
+    flex: 1;
 }
 
 /* Move title below image */
 .review-title.below-image {
-  text-align: center;
-  margin-top: 12px;
-  font-size: 24px;
-  color: #facc15;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 24px;
+    color: #facc15;
 }
 .slider-image.single {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 12px;
-  transition: all 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
 }
 
 .image-count {
-  text-align: center;
-  margin-top: 8px;
-  color: #facc15;
-  font-size: 14px;
-}
-/* In your ReviewDetailPage.css */
-
-.icon {
-  margin-right: 8px; /* Space between icon and text */
-  vertical-align: middle; /* Align icon vertically with text */
-  font-size: 1.1em; /* Adjust size if needed */
-  /* color: #yourAccentColor; */ /* Example: color: #007bff; */
-}
-
-.icon-list-item {
-  margin-right: 5px;
-  vertical-align: middle;
-  font-size: 0.9em;
-  /* color: #28a745; */ /* Example: green for checkmarks */
-}
-
-.icon-inline {
-  margin-right: 5px;
-  vertical-align: text-bottom; /* or middle, top, etc. */
-  font-size: 1em;
-  /* color: #dc3545; */ /* Example: a different color */
-}
-
-
- @media (max-width: 768px) {
-  .flex-layout {
-    flex-direction: column;
-  }
-
-  .review-title.below-image {
     text-align: center;
-  }
+    margin-top: 8px;
+    color: #facc15;
+    font-size: 14px;
 }
 
 .quote-box {
-  background-color: #1e293b;
-  border-left: 5px solid #facc15;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+    background-color: #1e293b;
+    border-left: 5px solid #facc15;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .quote-text {
-  font-style: italic;
-  font-size: 16px;
-  color: #e2e8f0;
-  line-height: 1.6;
+    font-style: italic;
+    font-size: 16px;
+    color: #e2e8f0;
+    line-height: 1.6;
 }
 .more-pics-btn {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .more-pics-btn:hover {
-  background-color: #2563eb;
+    background-color: #2563eb;
 }
 
+/* --- Media Queries for Responsiveness (Refined for Centering and preventing cut-off) --- */
+
+/* For devices smaller than 1024px (e.g., tablets in portrait and phones) */
+@media (max-width: 1024px) {
+    .review-detail-container {
+        padding: 80px 20px;
+    }
+    .review-content {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .review-left,
+    .review-info {
+        flex: none;
+        width: 100%;
+    }
+    .info-row {
+        flex-direction: column; /* Stack info columns vertically */
+        gap: 20px;
+        align-items: center; /* Center the info-cols when stacked */
+    }
+    .info-col {
+        flex: none;
+        width: 100%; /* Make info-col take full width */
+        max-width: 400px; /* Optional: Limit max width for readability on wider tablets */
+        min-width: unset;
+        padding-bottom: 10px;
+        margin-left: auto; /* Center block-level element if max-width is applied */
+        margin-right: auto; /* Center block-level element if max-width is applied */
+    }
+
+    /* Facilities Grid adjustments for smaller screens */
+    .facilities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+        justify-content: center; /* Center grid items horizontally */
+    }
+    .facility-icon {
+        font-size: 1.8em;
+        margin-bottom: 6px;
+    }
+    .facility-text {
+        font-size: 0.85em;
+    }
+
+    /* Ratings Grid adjustments for smaller screens */
+    .ratings-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+        justify-content: center; /* Center grid items horizontally */
+    }
+    .rating-icon {
+        font-size: 1.6em;
+        margin-bottom: 5px;
+    }
+    .rating-category {
+        font-size: 0.8em;
+    }
+    .rating-score {
+        font-size: 0.9em;
+    }
+
+    /* Meta column adjustments for tablets */
+    .meta-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust columns for tablets */
+        gap: 12px;
+    }
+    .meta-icon {
+        font-size: 1.8em;
+    }
+    .meta-category {
+        font-size: 0.75em;
+    }
+    .meta-value {
+        font-size: 0.85em;
+    }
+}
+
+/* For devices smaller than 768px (e.g., most phones) */
+@media (max-width: 768px) {
+    .review-detail-container {
+        padding: 60px 15px;
+    }
+    .review-info {
+        padding: 15px;
+        margin-left: auto;
+        margin-left: auto;
+        max-width: 96%;
+    }
+    .info-col {
+        padding-bottom: 8px;
+        max-width: 100%;
+    }
+
+    .section-heading {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    /* Facilities Grid adjustments for phones */
+    .facilities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 12px;
+        justify-content: center;
+    }
+    .facility-icon {
+        font-size: 1.6em;
+        margin-bottom: 5px;
+    }
+    .facility-text {
+        font-size: 0.8em;
+    }
+
+    /* Ratings Grid adjustments for phones */
+    .ratings-grid {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 8px;
+        justify-content: center;
+    }
+    .rating-icon {
+        font-size: 1.4em;
+        margin-bottom: 4px;
+    }
+    .rating-category {
+        font-size: 0.75em;
+    }
+    .rating-score {
+        font-size: 0.85em;
+    }
+
+    /* Meta column adjustments for phones */
+    .meta-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 10px;
+    }
+    .meta-icon {
+        font-size: 1.6em;
+    }
+    .meta-category {
+        font-size: 0.7em;
+    }
+    .meta-value {
+        font-size: 0.8em;
+    }
+}
+
+/* For very small devices (e.g., older or smaller phones) */
+@media (max-width: 480px) {
+    .review-detail-container {
+        padding: 40px 10px;
+        margin-top: 25px;
+    }
+    .review-info {
+        padding: 10px;
+        /* margin-right: 30px; */
+        max-width: 94%;
+    }
+    .section-heading {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+
+    /* Facilities Grid adjustments for very small phones */
+    .facilities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+    }
+    .facility-icon {
+        font-size: 1.4em;
+        margin-bottom: 4px;
+    }
+    .facility-text {
+        font-size: 0.75em;
+    }
+
+    /* Ratings Grid adjustments for very small phones */
+    .ratings-grid {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 6px;
+    }
+    .rating-icon {
+        font-size: 1.2em;
+        margin-bottom: 3px;
+    }
+    .rating-category {
+        font-size: 0.7em;
+    }
+    .rating-score {
+        font-size: 0.8em;
+    }
+
+    /* Meta column adjustments for very small phones */
+    .meta-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 8px;
+    }
+    .meta-icon {
+        font-size: 1.4em;
+    }
+    .meta-category {
+        font-size: 0.65em;
+    }
+    .meta-value {
+        font-size: 0.75em;
+    }
+
+    .review-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    .edit-btn, .delete-btn {
+        width: 90%;
+        max-width: 200px;
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px){
+  .review-content{
+    margin-top: 55px;
+  }
+}
+@media (max-width: 768px){
+  .review-content{
+    margin-top: 40px;
+  }
+}
+.map {
+  border-radius: 50px; /* Or whatever value you prefer */
+  overflow: hidden; /* This is crucial for the border-radius to be visible */
+}
