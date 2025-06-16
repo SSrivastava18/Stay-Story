@@ -107,12 +107,17 @@ const Reviewcard = ({
     return text;
   };
 
-  // Apply truncation for location, using 10 words as specified
+  // Apply truncation for location, using 2 words as specified
   const displayedLocation = truncateLocation(location, 2); 
+
+  // Function to handle link click and scroll to top
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0); // Scroll to the top of the page
+  };
 
   return (
     <div className="reviewcard">
-      <Link to={`/review/${id}`} className="reviewcard-link">
+      <Link to={`/review/${id}`} className="reviewcard-link" onClick={handleLinkClick}>
         <div className="image-slider-container">
           {images.length > 0 ? (
             <>
@@ -150,7 +155,8 @@ const Reviewcard = ({
         <p className="review-text clamped">{reviewText}</p>
 
         {reviewText?.length > 120 && (
-          <Link to={`/review/${id}`} className="read-more">
+          // Apply handleLinkClick to this Link as well if it navigates to the same review detail page
+          <Link to={`/review/${id}`} className="read-more" onClick={handleLinkClick}>
             Read more
           </Link>
         )}

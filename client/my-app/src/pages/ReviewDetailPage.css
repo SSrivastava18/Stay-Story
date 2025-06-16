@@ -7,9 +7,55 @@
 
 .review-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* Define grid template for desktop:
+       - review-left (contains image, title, and review-text-card)
+       - review-info (contains facilities, ratings, meta, buttons, and comment-wrapper)
+    */
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
     gap: 20px;
 }
+
+/* Assign grid areas - these are now the main columns */
+.review-left {
+    grid-area: auto; /* No specific grid-area name needed here, it's implicitly the first column */
+    display: flex; /* Use flexbox to stack items vertically within this column */
+    flex-direction: column;
+    gap: 20px; /* Gap between image/title and the review-text-card */
+}
+
+.review-info {
+    grid-area: auto; /* No specific grid-area name needed here, it's implicitly the second column */
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    display: flex; /* Use flexbox to stack items vertically within this column */
+    flex-direction: column;
+    gap: 20px; /* Gap between info-row, buttons, and comment-wrapper */
+}
+
+/* Specific styling for the moved review text card */
+.review-text-card {
+    background: #1e293b;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.6;
+    /* No margin-top needed here as it's handled by gap in review-left */
+}
+
+/* Specific styling for the moved comment section */
+.comment-wrapper {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 16px;
+    /* No margin-top needed here as it's handled by gap in review-info */
+}
+
 
 .review-title {
     font-size: 28px;
@@ -27,7 +73,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1e293b;
+    /* background-color: #1e293b; */ /* Remove or comment this line out */
 }
 
 .slider-arrow {
@@ -65,15 +111,7 @@
     object-fit: contain;
     border-radius: 12px;
     margin-right: 10px;
-    
-}
 
-.review-info {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
-    color: #ffffff;
 }
 
 .info-row {
@@ -241,16 +279,6 @@
 }
 
 
-.review-text-card {
-    background: #1e293b;
-    padding: 16px;
-    border-radius: 10px;
-    border: 1px solid #334155;
-    color: #ffffff;
-    margin-top: 20px;
-    font-size: 15px;
-    line-height: 1.6;
-}
 .review-text-card h3 {
     color: #facc15;
 }
@@ -279,14 +307,6 @@
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-.comment-wrapper {
-    margin-top: 24px;
-    background-color: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 10px;
-    padding: 16px;
 }
 
 .recommended-reviews-wrapper {
@@ -320,9 +340,9 @@
     background-color: #eab308;
 }
 
-/* Flex layout to align image + info side by side */
-.flex-layout {
-    display: flex;
+/* Remove .flex-layout if it's not used elsewhere, or update it */
+.flex-layout { /* This class is now primarily controlled by grid */
+    /* display: flex;  */
     align-items: flex-start;
     gap: 20px;
 }
@@ -330,7 +350,7 @@
 /* Each side takes equal width */
 .review-left,
 .review-info {
-    flex: 1;
+    /* flex: 1; -> Replaced by grid-template-columns */
 }
 
 /* Move title below image */
@@ -392,14 +412,16 @@
         padding: 80px 20px;
     }
     .review-content {
+        /* On smaller screens, stack all elements vertically */
         grid-template-columns: 1fr;
-        flex-direction: column;
         gap: 30px;
     }
     .review-left,
     .review-info {
-        flex: none;
+        flex: none; /* Remove flex behavior */
         width: 100%;
+        margin-left: auto; /* Center content */
+        margin-right: auto; /* Center content */
     }
     .info-row {
         flex-direction: column; /* Stack info columns vertically */
@@ -449,7 +471,7 @@
 
     /* Meta column adjustments for tablets */
     .meta-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust columns for tablets */
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 12px;
     }
     .meta-icon {
@@ -530,6 +552,13 @@
     .meta-value {
         font-size: 0.8em;
     }
+
+    /* Map adjustments for phone view */
+    .map {
+        height: 250px; /* Decreased height */
+        width: 95%; /* Adjusted width */
+        margin: 40px auto 20px auto; /* Centered with top and bottom margin */
+    }
 }
 
 /* For very small devices (e.g., older or smaller phones) */
@@ -602,6 +631,13 @@
         max-width: 200px;
         margin: 0;
     }
+
+    /* Map adjustments for very small phone view */
+    .map {
+        height: 200px; /* Even more decreased height */
+        width: 98%; /* Adjusted width */
+        margin: 30px auto 15px auto; /* Centered with top and bottom margin */
+    }
 }
 
 @media (max-width: 480px){
@@ -616,5 +652,5 @@
 }
 .map {
   border-radius: 50px; /* Or whatever value you prefer */
-  overflow: hidden; /* This is crucial for the border-radius to be visible */
+  overflow: hidden; 
 }

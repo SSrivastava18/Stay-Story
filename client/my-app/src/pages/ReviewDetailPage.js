@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { StoreContext } from "../StoreContext";
 import "./ReviewDetailPage.css";
 import CommentSection from "../components/CommentSection";
-import Reviewcard from "../components/Reviewcard";
+import Reviewcard from "../components/Reviewcard"; // CORRECTED PATH HERE
 import MapComponent from "../components/MapComponent";
 
 // Import additional icons
@@ -13,15 +13,17 @@ import {
     FaStar,
     FaMapMarkerAlt,
     FaCheckCircle,
-    FaBroom,         // For cleanliness
-    FaUtensils,      // For food
-    FaShieldAlt,     // For security
-    FaWifi,          // For internet
-    FaRupeeSign,     // For Price Range
-    FaBed,           // For Room Type
-    FaParking,       // For Parking
-    FaDumbbell,      // For Gym
-    FaHandsWash      // For Laundry
+    FaBroom,          // For cleanliness
+    FaUtensils,       // For food
+    FaShieldAlt,      // For security
+    FaWifi,           // For internet
+    FaRupeeSign,      // For Price Range
+    FaBed,            // For Room Type
+    FaParking,        // For Parking
+    FaDumbbell,       // For Gym
+    FaHandsWash,      // For Laundry
+    FaBuilding,       // For PG Type
+    FaUsers           // For Preferred Tenant
 } from 'react-icons/fa';
 
 
@@ -124,7 +126,7 @@ const ReviewDetailPage = () => {
 
   return (
     <div className="review-detail-container">
-      <div className="review-content flex-layout">
+      <div className="review-content">
         <div className="review-left">
           <div className="image-slider-wrapper">
             <button className="slider-arrow left" onClick={() => scrollImage("left")}>&#9664;</button>
@@ -144,9 +146,12 @@ const ReviewDetailPage = () => {
           )}
           <h1 className="review-title below-image">{review.name}</h1>
 
-          <div className="comment-wrapper">
-            <CommentSection reviewId={id} />
+          {/* User's written review (moved here) */}
+          <div className="review-text-card">
+              <h3>Review</h3>
+              <p>{review.reviewText}</p>
           </div>
+
         </div>
 
         <div className="review-info">
@@ -241,15 +246,25 @@ const ReviewDetailPage = () => {
                         <p className="meta-category">Room Type</p>
                         <p className="meta-value">{review.roomType}</p>
                     </div>
+                    {/* New additions for PG Type and Preferred Tenant */}
+                    {review.pgType && (
+                        <div className="meta-item">
+                            <FaBuilding className="meta-icon" />
+                            <p className="meta-category">PG Type</p>
+                            <p className="meta-value">{review.pgType}</p>
+                        </div>
+                    )}
+                    {review.preferredTenant && (
+                        <div className="meta-item">
+                            <FaUsers className="meta-icon" />
+                            <p className="meta-category">Preferred Tenant</p>
+                            <p className="meta-value">{review.preferredTenant}</p>
+                        </div>
+                    )}
                 </div>
             </div>
           </div>
 
-          <div className="review-text-card">
-            <h3>Review</h3>
-            <p>{review.reviewText}</p>
-          </div>
- 
 
           {isAuthor && (
             <div className="review-buttons">
@@ -265,10 +280,16 @@ const ReviewDetailPage = () => {
               />
             </div>
           )}
-        </div>
-      </div>
 
-      {/* Moved MapComponent outside review-content to be below it */}
+          {/* Comment section (moved here) */}
+          <div className="comment-wrapper">
+            <CommentSection reviewId={id} />
+          </div>
+
+        </div> {/* End of review-info */}
+
+      </div> {/* End of review-content */}
+
       <MapComponent className="map" location={review.location} />
 
       <div className="recommended-reviews-wrapper">
