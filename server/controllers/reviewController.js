@@ -159,23 +159,46 @@ module.exports.updateReview = async (req, res) => {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    let imageData = review.image;
-
-    if (req.files?.image) {
-      const file = req.files.image;
-      const uploadResult = await cloudinary.uploader.upload(file.tempFilePath);
-      imageData = [
-        {
-          url: uploadResult.secure_url,
-          filename: uploadResult.public_id,
-        },
-      ];
+    // ✅ Normalize retained image URLs from the form
+    let retainedImages = [];
+    if (Array.isArray(req.body.existingImages)) {
+      retainedImages = req.body.existingImages;
+    } else if (typeof req.body.existingImages === "string") {
+      retainedImages = [req.body.existingImages];
     }
 
+    // ✅ Delete removed images from Cloudinary
+    const imagesToDelete = review.image.filter(
+      (img) => !retainedImages.includes(img.url)
+    );
+    for (let img of imagesToDelete) {
+      await cloudinary.uploader.destroy(img.filename);
+    }
+
+    // ✅ Start with retained images
+    let updatedImages = review.image.filter((img) =>
+      retainedImages.includes(img.url)
+    );
+
+    // ✅ Handle newly uploaded files
+    const newFiles = Array.isArray(req.files?.images)
+      ? req.files.images
+      : [req.files?.images].filter(Boolean);
+
+    for (let file of newFiles) {
+      const result = await cloudinary.uploader.upload(file.tempFilePath);
+      updatedImages.push({
+        url: result.secure_url,
+        filename: result.public_id,
+      });
+    }
+
+    // ✅ Parse facilities array safely
     const facilities = Array.isArray(req.body["facilities[]"])
       ? req.body["facilities[]"]
       : [req.body["facilities[]"]].filter(Boolean);
 
+    // ✅ Parse nested ratings
     const facilitiesRating = {
       cleanliness: Number(req.body["facilitiesRating[cleanliness]"]) || 0,
       food: Number(req.body["facilitiesRating[food]"]) || 0,
@@ -183,12 +206,13 @@ module.exports.updateReview = async (req, res) => {
       internet: Number(req.body["facilitiesRating[internet]"]) || 0,
     };
 
+    // ✅ Construct update payload
     const updatedData = {
-      name: req.body.name.trim(),
-      location: req.body.location.trim(),
-      reviewText: req.body.reviewText.trim(),
+      name: req.body.name?.trim(),
+      location: req.body.location?.trim(),
+      reviewText: req.body.reviewText?.trim(),
       rating: req.body.rating,
-      image: imageData,
+      image: updatedImages,
       priceRange: req.body.priceRange,
       roomType: req.body.roomType,
       facilities,
@@ -197,14 +221,21 @@ module.exports.updateReview = async (req, res) => {
       facilitiesRating,
     };
 
-    const updatedReview = await Review.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    // ✅ Apply update
+    const updatedReview = await Review.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true }
+    );
 
-    res.json({ success: true, updatedReview });
+    return res.json({ success: true, updatedReview });
+
   } catch (error) {
     console.error("Update error:", error);
     res.status(500).json({ message: "Server error occurred" });
   }
 };
+
 
 // Like or unlike a review
 module.exports.likeReview = async (req, res) => {

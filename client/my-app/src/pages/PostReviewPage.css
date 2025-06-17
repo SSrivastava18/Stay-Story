@@ -1,228 +1,220 @@
-/* PostReviewPage.css - Styled to match dark theme with improved layout */
-
-.add-review-container {
-    max-width: 900px;
-    margin: 100px auto 40px;
-    padding: 40px;
-    background-color: #1e293b;
-    border-radius: 16px;
-    color: #e2e8f0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-    font-family: "Segoe UI", sans-serif;
-    box-sizing: border-box;
-    width: 90%;
+:root {
+  --primary-bg: #0f172a;
+  --secondary-bg: #1e293b;
+  --text-light: #f1f5f9;
+  --text-muted: #cbd5e1;
+  --accent-color: #38bdf8;
+  --accent-dark: #0ea5e9;
+  --border-color: #334155;
 }
 
-/* 📝 Intro text at top */
-.add-review-container::before {
-    content: "Make your StayStory — share your experience and let the world know your story!";
-    display: block;
-    font-size: 22px;
-    font-weight: 600;
-    color: #facc15;
-    margin-bottom: 30px;
-    text-align: center;
-    letter-spacing: 0.5px;
-    line-height: 1.4;
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-light);
+}
+
+.add-review-container {
+  min-height: 100vh;
+  padding: 100px 20px 40px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: center;
+  background-color: var(--primary-bg);
 }
 
 .review-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    width: 100%;
-    box-sizing: border-box;
+  background-color: var(--secondary-bg);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 20px 30px;
+  max-width: 850px;
+  width: 100%;
 }
 
 .review-form label {
-    font-weight: 600;
-    font-size: 15px;
-    color: #facc15;
-    grid-column: span 2;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+  display: block;
 }
 
 .review-form input,
 .review-form select,
 .review-form textarea {
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 10px;
-    padding: 12px;
-    color: #ffffff;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s ease;
-    grid-column: span 2;
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  resize: none;
+  border-radius: 6px;
+  border: 1px solid #3a3a50;
+  background-color: #2a2b3a;
+  color: #f8f8f8;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 .review-form textarea {
-    min-height: 100px;
-    resize: vertical;
+  resize: vertical;
+  grid-column: span 2;
+  min-height: 80px;
 }
 
-.review-form input:focus,
-.review-form select:focus,
-.review-form textarea:focus {
-    border-color: #facc15;
+.review-form input[type="file"] {
+  padding: 4px;
+  background: none;
+  border: none;
+  color: #ccc;
 }
-
-.checkbox-group {
-    grid-column: span 2;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    width: 100%;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    color: #e2e8f0;
-    background-color: #0f172a;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #334155;
-}
-
-h3 {
-    grid-column: span 2;
-    color: #38bdf8;
-    margin-top: 20px;
-    font-size: 17px;
-    font-weight: 600;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 4px;
-}
-
-.review-form button {
-    grid-column: span 2;
-    margin-top: 20px; /* Adjusted margin to provide consistent spacing */
-    padding: 14px;
-    background-color: #3b82f6;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.review-form button:hover {
-    background-color: #2563eb;
-}
-
-/* --- Image Preview Section --- */
 
 .image-preview-container {
-    grid-column: span 2; /* Spans full width in grid */
-    display: flex;
-    flex-wrap: wrap; /* Allow images to wrap to the next line */
-    gap: 10px; /* Space between image previews */
-    margin-top: 10px; /* Space from the "Upload Images" label */
-    justify-content: center; /* Center the image previews within their container */
+  grid-column: span 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .image-preview-item {
-    position: relative; /* Needed for absolute positioning of the button */
-    width: 100px; /* Fixed width for consistent preview size */
-    height: 100px; /* Fixed height */
-    border: 1px solid #334155; /* Matches other borders */
-    border-radius: 8px;
-    overflow: hidden; /* Hide overflowing parts of the image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #44465a;
+  background-color: #2a2b3a;
 }
 
 .image-preview-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover the entire area without distortion */
-    border-radius: 8px; /* Matches parent border-radius */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .remove-image-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: rgba(255, 0, 0, 0.7); /* Red with some transparency */
-    color: white;
-    border: none;
-    border-radius: 50%; /* Make it circular */
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    cursor: pointer;
-    line-height: 1; /* Adjust line height for perfect centering of 'x' */
-    opacity: 0.9; /* Slightly more opaque than previous for better visibility */
-    transition: opacity 0.2s ease, background-color 0.2s ease;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.remove-image-btn:hover {
-    background-color: rgba(255, 0, 0, 1); /* Fully opaque red on hover */
-    opacity: 1;
-    transform: scale(1.1); /* Slight zoom effect on hover */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  grid-column: span 2;
 }
 
-/* --- Responsiveness --- */
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  background-color: #333446;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #44465a;
+  font-size: 13px;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  width: 70px;
+  text-overflow: ellipsis;
+}
 
+.checkbox-group input {
+  margin-right: 8px;
+  width: 20px;
+}
+
+h3 {
+  grid-column: span 2;
+  color: var(--accent-color);
+  font-size: 16px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.review-form button {
+  grid-column: span 2;
+  padding: 12px;
+  background-color: var(--accent-dark);
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.review-form button:hover {
+  background-color: #1876d2;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .review-form {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
-    }
+  .review-form {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
 
-    .review-form label,
-    .review-form input,
-    .review-form select,
-    .review-form textarea,
-    .review-form button,
-    .checkbox-group,
-    h3,
-    .image-preview-container {
-        grid-column: span 1; /* All elements span 1 column */
-    }
+  .review-form > * {
+    grid-column: span 1 !important;
+  }
 
-    .add-review-container::before {
-        font-size: 18px;
-        padding: 0 10px;
-    }
+  .checkbox-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    .add-review-container {
-        padding: 24px 16px;
-        margin: 80px 8px 30px;
-        width: 95%;
-    }
+  h3,
+  .review-form textarea,
+  .review-form button {
+    grid-column: span 1;
+  }
 
-    .review-form input,
-    .review-form select,
-    .review-form textarea,
-    .review-form button {
-        font-size: 15px;
-        padding: 10px;
-    }
+  .image-preview-container {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
 
-    .checkbox-group {
-        grid-template-columns: 1fr; /* Stack checkboxes on very small screens */
-    }
+@media (max-width: 480px) {
+  .checkbox-group {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-    /* Adjust image preview for smaller screens if needed */
-    .image-preview-item {
-        width: 80px; /* Smaller preview size */
-        height: 80px;
-    }
+  .checkbox-group label {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
 
-    .remove-image-btn {
-        width: 22px; /* Smaller button */
-        height: 22px;
-        font-size: 14px;
-    }
+  .review-form {
+    padding: 15px;
+    gap: 16px;
+  }
+
+  .review-form input,
+  .review-form select,
+  .review-form textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .review-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }

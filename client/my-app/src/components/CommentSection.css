@@ -136,3 +136,21 @@
 	background-color: rgba(255, 255, 255, 0.2);
 	border-radius: 3px;
 }
+/* Responsive Toastify size tweaks for mobile */
+@media (max-width: 600px) {
+  .Toastify__toast {
+    font-size: 12px !important;
+    min-height: 40px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+  }
+
+  .Toastify__toast-body {
+    font-size: 12px !important;
+  }
+
+  .Toastify__close-button {
+    font-size: 14px !important;
+    margin-right: 6px !important;
+  }
+}

@@ -3,11 +3,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { StoreContext } from "../StoreContext";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import Icon from "./icon"; // (Optional if you use it somewhere)
+import Icon from "./icon"; // Optional icon
 import "./Login.css";
+import 'react-toastify/dist/ReactToastify.css';
+import '../style.css';
 
 const Login = ({ setshowLogin }) => {
-  const apiUrl = "http://localhost:2000"; // ⚠ Change this to your backend URL in production
+  const apiUrl = "http://localhost:2000"; // Update this in production
   const { setToken, getUserData } = useContext(StoreContext);
   const [page, setPage] = useState("Sign up");
   const [data, setdata] = useState({
@@ -33,12 +35,12 @@ const Login = ({ setshowLogin }) => {
         localStorage.setItem("token", token);
         await getUserData(token);
         setshowLogin(false);
-        toast.success("Logged in successfully");
+        toast.success("Logged in successfully", { autoClose: 1500 });
       } else {
-        toast.error("Login failed");
+        toast.error("Login failed", { autoClose: 1500 });
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(error.response?.data?.message || "An error occurred", { autoClose: 1500 });
     }
   };
 
@@ -54,18 +56,18 @@ const Login = ({ setshowLogin }) => {
         localStorage.setItem("token", token);
         await getUserData(token);
         setshowLogin(false);
-        toast.success("Logged in with Google!");
+        toast.success("Logged in with Google!", { autoClose: 1500 });
       } else {
-        toast.error("Google login failed.");
+        toast.error("Google login failed.", { autoClose: 1500 });
       }
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong with Google login.");
+      toast.error("Something went wrong with Google login.", { autoClose: 1500 });
     }
   };
 
   const googleFailure = () => {
-    toast.error("Google login failed. Please try again.");
+    toast.error("Google login failed. Please try again.", { autoClose: 1500 });
   };
 
   return (

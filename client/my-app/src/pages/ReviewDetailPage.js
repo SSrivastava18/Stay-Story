@@ -5,27 +5,16 @@ import { toast } from "react-toastify";
 import { StoreContext } from "../StoreContext";
 import "./ReviewDetailPage.css";
 import CommentSection from "../components/CommentSection";
-import Reviewcard from "../components/Reviewcard"; // CORRECTED PATH HERE
+import Reviewcard from "../components/Reviewcard";
 import MapComponent from "../components/MapComponent";
+import 'react-toastify/dist/ReactToastify.css';
+import '../style.css';
 
-// Import additional icons
+// Icons
 import {
-    FaStar,
-    FaMapMarkerAlt,
-    FaCheckCircle,
-    FaBroom,          // For cleanliness
-    FaUtensils,       // For food
-    FaShieldAlt,      // For security
-    FaWifi,           // For internet
-    FaRupeeSign,      // For Price Range
-    FaBed,            // For Room Type
-    FaParking,        // For Parking
-    FaDumbbell,       // For Gym
-    FaHandsWash,      // For Laundry
-    FaBuilding,       // For PG Type
-    FaUsers           // For Preferred Tenant
+  FaStar, FaMapMarkerAlt, FaCheckCircle, FaBroom, FaUtensils, FaShieldAlt, FaWifi,
+  FaRupeeSign, FaBed, FaParking, FaDumbbell, FaHandsWash, FaBuilding, FaUsers
 } from 'react-icons/fa';
-
 
 const ReviewDetailPage = () => {
   const { id } = useParams();
@@ -63,10 +52,9 @@ const ReviewDetailPage = () => {
   const scrollImage = (direction) => {
     if (!review?.image?.length) return;
     const maxIndex = review.image.length - 1;
-    setCurrentImageIndex((prev) => {
-      if (direction === "left") return prev === 0 ? maxIndex : prev - 1;
-      else return prev === maxIndex ? 0 : prev + 1;
-    });
+    setCurrentImageIndex((prev) =>
+      direction === "left" ? (prev === 0 ? maxIndex : prev - 1) : (prev === maxIndex ? 0 : prev + 1)
+    );
   };
 
   const handleFileChange = async (e) => {
@@ -93,13 +81,13 @@ const ReviewDetailPage = () => {
           ...prev,
           image: res.data.updatedImages,
         }));
-        toast.success("Images uploaded successfully!");
+        toast.success("Images uploaded successfully!", { autoClose: 1500 });
       } else {
-        toast.error("Failed to upload images.");
+        toast.error("Failed to upload images.", { autoClose: 1500 });
       }
     } catch (error) {
       console.error("Upload error:", error);
-      toast.error("Error uploading images.");
+      toast.error("Error uploading images.", { autoClose: 1500 });
     }
   };
 
@@ -109,14 +97,14 @@ const ReviewDetailPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.data.success) {
-        toast.success(res.data.message);
+        toast.success(res.data.message, { autoClose: 1500 });
         setReview(null);
         navigate("/");
       } else {
-        toast.error(res.data.message);
+        toast.error(res.data.message, { autoClose: 1500 });
       }
     } catch (error) {
-      toast.error("Failed to delete review.");
+      toast.error("Failed to delete review.", { autoClose: 1500 });
     }
   };
 
@@ -146,12 +134,10 @@ const ReviewDetailPage = () => {
           )}
           <h1 className="review-title below-image">{review.name}</h1>
 
-          {/* User's written review (moved here) */}
           <div className="review-text-card">
-              <h3>Review</h3>
-              <p>{review.reviewText}</p>
+            <h3>Review</h3>
+            <p>{review.reviewText}</p>
           </div>
-
         </div>
 
         <div className="review-info">
@@ -160,33 +146,21 @@ const ReviewDetailPage = () => {
               <h3 className="section-heading">What this place offers:</h3>
               <div className="facilities-grid">
                 {review.facilities.map((facility, index) => {
-                    let FacilityIconComponent;
-                    // Conditionally select icon based on the facility name
-                    switch (facility.toLowerCase()) {
-                        case 'wifi':
-                            FacilityIconComponent = FaWifi;
-                            break;
-                        case 'meals':
-                            FacilityIconComponent = FaUtensils;
-                            break;
-                        case 'parking':
-                            FacilityIconComponent = FaParking;
-                            break;
-                        case 'gym':
-                            FacilityIconComponent = FaDumbbell;
-                            break;
-                        case 'laundry':
-                            FacilityIconComponent = FaHandsWash;
-                            break;
-                        default:
-                            FacilityIconComponent = FaCheckCircle; // Default icon
-                    }
-                    return (
-                        <div key={index} className="facility-item">
-                            <FacilityIconComponent className="facility-icon" />
-                            <p className="facility-text">{facility}</p>
-                        </div>
-                    );
+                  let FacilityIconComponent;
+                  switch (facility.toLowerCase()) {
+                    case 'wifi': FacilityIconComponent = FaWifi; break;
+                    case 'meals': FacilityIconComponent = FaUtensils; break;
+                    case 'parking': FacilityIconComponent = FaParking; break;
+                    case 'gym': FacilityIconComponent = FaDumbbell; break;
+                    case 'laundry': FacilityIconComponent = FaHandsWash; break;
+                    default: FacilityIconComponent = FaCheckCircle;
+                  }
+                  return (
+                    <div key={index} className="facility-item">
+                      <FacilityIconComponent className="facility-icon" />
+                      <p className="facility-text">{facility}</p>
+                    </div>
+                  );
                 })}
               </div>
             </div>
@@ -195,76 +169,65 @@ const ReviewDetailPage = () => {
               <h3 className="section-heading">Facilities Ratings:</h3>
               <div className="ratings-grid">
                 {Object.entries(review.facilitiesRating).map(([key, value], index) => {
-                    let IconComponent;
-                    switch (key.toLowerCase()) {
-                        case 'cleanliness':
-                            IconComponent = FaBroom;
-                            break;
-                        case 'food':
-                            IconComponent = FaUtensils;
-                            break;
-                        case 'security':
-                            IconComponent = FaShieldAlt;
-                            break;
-                        case 'internet':
-                            IconComponent = FaWifi;
-                            break;
-                        default:
-                            IconComponent = FaStar; // Default icon if no specific one is found
-                    }
-                    return (
-                        <div key={index} className="rating-item">
-                            <IconComponent className="rating-icon" />
-                            <p className="rating-category">{key}</p>
-                            <p className="rating-score">{value}/5</p>
-                        </div>
-                    );
+                  let IconComponent;
+                  switch (key.toLowerCase()) {
+                    case 'cleanliness': IconComponent = FaBroom; break;
+                    case 'food': IconComponent = FaUtensils; break;
+                    case 'security': IconComponent = FaShieldAlt; break;
+                    case 'internet': IconComponent = FaWifi; break;
+                    default: IconComponent = FaStar;
+                  }
+                  return (
+                    <div key={index} className="rating-item">
+                      <IconComponent className="rating-icon" />
+                      <p className="rating-category">{key}</p>
+                      <p className="rating-score">{value}/5</p>
+                    </div>
+                  );
                 })}
               </div>
             </div>
 
             <div className="info-col meta-column">
-                <h3 className="section-heading">About this place:</h3>
-                <div className="meta-grid">
-                    <div className="meta-item">
-                        <FaMapMarkerAlt className="meta-icon" />
-                        <p className="meta-category">Location</p>
-                        <p className="meta-value">{review.location}</p>
-                    </div>
-                    <div className="meta-item">
-                        <FaStar className="meta-icon" />
-                        <p className="meta-category">Rating</p>
-                        <p className="meta-value">{review.rating}/5</p>
-                    </div>
-                    <div className="meta-item">
-                        <FaRupeeSign className="meta-icon" />
-                        <p className="meta-category">Price Range</p>
-                        <p className="meta-value">{review.priceRange}</p>
-                    </div>
-                    <div className="meta-item">
-                        <FaBed className="meta-icon" />
-                        <p className="meta-category">Room Type</p>
-                        <p className="meta-value">{review.roomType}</p>
-                    </div>
-                    {/* New additions for PG Type and Preferred Tenant */}
-                    {review.pgType && (
-                        <div className="meta-item">
-                            <FaBuilding className="meta-icon" />
-                            <p className="meta-category">PG Type</p>
-                            <p className="meta-value">{review.pgType}</p>
-                        </div>
-                    )}
-                    {review.preferredTenant && (
-                        <div className="meta-item">
-                            <FaUsers className="meta-icon" />
-                            <p className="meta-category">Preferred Tenant</p>
-                            <p className="meta-value">{review.preferredTenant}</p>
-                        </div>
-                    )}
+              <h3 className="section-heading">About this place:</h3>
+              <div className="meta-grid">
+                <div className="meta-item">
+                  <FaMapMarkerAlt className="meta-icon" />
+                  <p className="meta-category">Location</p>
+                  <p className="meta-value">{review.location}</p>
                 </div>
+                <div className="meta-item">
+                  <FaStar className="meta-icon" />
+                  <p className="meta-category">Rating</p>
+                  <p className="meta-value">{review.rating}/5</p>
+                </div>
+                <div className="meta-item">
+                  <FaRupeeSign className="meta-icon" />
+                  <p className="meta-category">Price Range</p>
+                  <p className="meta-value">{review.priceRange}</p>
+                </div>
+                <div className="meta-item">
+                  <FaBed className="meta-icon" />
+                  <p className="meta-category">Room Type</p>
+                  <p className="meta-value">{review.roomType}</p>
+                </div>
+                {review.pgType && (
+                  <div className="meta-item">
+                    <FaBuilding className="meta-icon" />
+                    <p className="meta-category">PG Type</p>
+                    <p className="meta-value">{review.pgType}</p>
+                  </div>
+                )}
+                {review.preferredTenant && (
+                  <div className="meta-item">
+                    <FaUsers className="meta-icon" />
+                    <p className="meta-category">Preferred Tenant</p>
+                    <p className="meta-value">{review.preferredTenant}</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-
 
           {isAuthor && (
             <div className="review-buttons">
@@ -281,14 +244,11 @@ const ReviewDetailPage = () => {
             </div>
           )}
 
-          {/* Comment section (moved here) */}
           <div className="comment-wrapper">
             <CommentSection reviewId={id} />
           </div>
-
-        </div> {/* End of review-info */}
-
-      </div> {/* End of review-content */}
+        </div>
+      </div>
 
       <MapComponent className="map" location={review.location} />
 

@@ -14,32 +14,25 @@
   box-shadow:
     0 2px 10px rgba(0, 0, 0, 0.4),
     0 0 15px rgba(255, 213, 0, 0.6);
-
   flex-wrap: wrap;
-
-
-}
-.logo-icon{
-    height: 50px;
-    width: 150px;
-    margin-right: 10px;
 }
 
-
+.logo-icon {
+  height: 50px;
+  width: 150px;
+  margin-right: 10px;
+}
 
 #logo {
   height: 180px;
-    margin-top: -50px;
+  margin-top: -50px;
 }
-
-
 
 /* Center nav buttons */
 .centernav {
   display: flex;
   align-items: center;
   gap: 20px;
-
 }
 
 .centernav button {
@@ -82,7 +75,7 @@
   font-weight: bold;
 }
 
-/* Hamburger Icon (hidden by default) */
+/* Hamburger Icon */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -92,17 +85,22 @@
   height: 30px;
   margin-right: 20px;
   margin-top: 10px;
-
 }
 
-/* Mobile dropdown menu */
+/* Mobile menu */
 .mobile-menu {
-  display: none;
-  flex-direction: column;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  width: 40%;
   background-color: #1e293b;
-  padding: 10px 20px;
-  width: 100%;
-  animation: slideDown 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 4px;
+  z-index: 1000;
+  transform: translateX(0%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .mobile-menu a,
@@ -116,65 +114,15 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  width: 100%;
 }
 
 .mobile-menu a:hover,
 .mobile-menu button:hover {
   color: #60a5fa;
+  background: #334155;
 }
 
-.mobile-menu #signbtn {
-  margin-top: -2px;
-
-}
-
-/* Logged-in user section in desktop view */
-.userbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.userbox p {
-  color: #f1f5f9;
-  font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-}
-
-.userbox button {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.userbox button:hover {
-  background-color: #dc2626;
-}
-
-/* My Reviews button */
-.my-reviews-btn {
-  background-color: #3b82f6;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.my-reviews-btn:hover {
-  background-color: #2563eb;
-}
-
-/* Mobile menu specific user section */
 .mobile-menu #userName {
   font-size: 15px;
   text-align: center;
@@ -185,59 +133,49 @@
   margin-bottom: 8px;
 }
 
-.mobile-menu {
-  position: fixed;
-  top: 70px;
-  right: 0;
-  width: 40%;
-  background-color: #1e293b;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  gap: 10px;
-  z-index: 1000;
-
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
+/* Hide mobile menu in desktop view */
+@media screen and (min-width: 769px) {
+  .mobile-menu {
+    display: none !important;
+  }
 }
 
-.navbox .mobile-menu {
-  transform: translateX(0%);
-}
-
-/* Mobile Logout button */
-.mobile-menu button {
-  background-color: #ef4444;
+/* Logout button styling */
+#outbtn {
   color: white;
-  padding: 8px 14px;
-  border-radius: 10px;
-  border: none;
+  background-color: #d42c2cee;
   margin-top: 8px;
+  padding: 8px 20px;
+  border: none;
   font-weight: bold;
   font-size: 14px;
+  border-radius: 10px;
+  width: fit-content;
 }
 
-.mobile-menu button:hover {
-  background-color: #dc2626;
+#signbtn {
+  color: white;
+  background-color: #10b981;
+  margin-top: 8px;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  width: fit-content;
 }
 
-/* Mobile Signup button style */
-
-
-
-.mobile-menu #signbtn:hover {
+#signbtn:hover {
   background-color: #059669;
 }
 
-
-/* Profile container */
+/* User greeting dropdown in desktop */
 .userbox {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
-/* Greeting + avatar */
 .user-greeting {
   display: flex;
   align-items: center;
@@ -247,20 +185,12 @@
   font-weight: 600;
 }
 
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #60a5fa;
-}
-
 .arrow {
   font-size: 18px;
   margin-top: 15px;
 }
 
-/* Dropdown menu */
+/* Desktop dropdown (My Reviews + Logout only) */
 .user-dropdown {
   position: absolute;
   top: 120%;
@@ -284,10 +214,7 @@
   background: none;
   font-size: 14px;
   cursor: pointer;
-}
-
-.mobile-menu {
-  display: none;
+  width: 100%;
 }
 
 .user-dropdown a:hover,
@@ -301,49 +228,7 @@
   margin-top: 10px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#signbtn {
-  color: white;
-  background-color: #10b981;
-  margin-top: 8px;
-  padding: 10px 20px 10px 20px;
-
-  border: none;
-  font-weight: bold;
-  font-size: 14px;
-  width: fit-content;
-}
-
-#outbtn {
-  color: white;
-  background-color: #d42c2cee;
-  margin-top: 8px;
-  padding: 8px 20px 8px 20px;
-
-  border: none;
-  font-weight: bold;
-  font-size: 14px;
-  width: fit-content;
-}
-
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
+/* Responsive adjustments */
 @media screen and (max-width: 1024px) {
   .logobox h2 {
     font-size: 20px;
@@ -357,13 +242,8 @@ a {
   .reviewloginbox {
     gap: 10px;
   }
-
-  .mobile-menu {
-    display: none;
-  }
 }
 
-/* Mobile (below 768px) */
 @media screen and (max-width: 768px) {
   .navbox {
     flex-direction: column;
@@ -374,12 +254,10 @@ a {
   .centernav,
   .reviewloginbox {
     display: none;
-    /* hide main nav */
   }
 
   .hamburger {
     display: block;
-    /* show hamburger */
     position: absolute;
     right: 20px;
     top: 15px;
@@ -394,7 +272,6 @@ a {
   }
 }
 
-/* Extra small (below 480px) */
 @media screen and (max-width: 480px) {
   .logobox h2 {
     font-size: 18px;
@@ -404,4 +281,9 @@ a {
   .mobile-menu button {
     font-size: 14px;
   }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

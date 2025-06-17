@@ -1,0 +1,36 @@
+@media (max-width: 600px) {
+  .Toastify__toast-container {
+    width: 60% !important;
+    left: 10% !important;
+    right: 5% !important;
+    padding: 0 !important;
+    margin-left: 99px;
+  }
+
+  .Toastify__toast {
+    font-size: 13px !important;
+    min-height: 36px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+  }
+
+  .Toastify__toast-body {
+    font-size: 12px !important;
+    margin: 0 !important;
+  }
+
+  .Toastify__close-button {
+    font-size: 14px !important;
+    margin-right: 5px !important;
+    /* margin-top: 2px; */
+    margin-bottom: -10px;
+
+  }
+}
+
+.Toastify__close-button {
+  font-size: 14px !important;
+  margin-right: 5px !important;
+  margin-top: 15px;
+
+}

@@ -3,6 +3,8 @@ import axios from "axios";
 import { StoreContext } from "../StoreContext";
 import { toast } from "react-toastify";
 import "./CommentSection.css";
+import 'react-toastify/dist/ReactToastify.css';
+import '../style.css';
 
 const CommentSection = ({ reviewId }) => {
     const { token, user } = useContext(StoreContext);
@@ -16,8 +18,7 @@ const CommentSection = ({ reviewId }) => {
         const fetchComments = async () => {
             try {
                 const res = await axios.get(`http://localhost:2000/review/${reviewId}/comments`);
-                // *** MODIFICATION HERE ***
-                setComments(res.data.comments.reverse()); // Reverse the array here
+                setComments(res.data.comments.reverse());
             } catch (err) {
                 console.error("Failed to fetch comments", err);
             }
@@ -34,14 +35,13 @@ const CommentSection = ({ reviewId }) => {
                 { content: newComment },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            // *** MODIFICATION HERE: Add the new comment to the beginning ***
             setComments((prev) => [res.data.comment, ...prev]);
-            toast.success("Comment posted successfully.");
+            toast.success("Comment posted successfully.", { autoClose: 1500 });
             setNewComment("");
             setFormVisible(false);
         } catch (err) {
             console.error("Failed to post comment", err);
-            toast.error("Failed to post comment.");
+            toast.error("Failed to post comment.", { autoClose: 1500 });
         }
     };
 
@@ -51,10 +51,10 @@ const CommentSection = ({ reviewId }) => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setComments(comments.filter((c) => c._id !== commentId));
-            toast.success("Comment deleted successfully.");
+            toast.success("Comment deleted successfully.", { autoClose: 1500 });
         } catch (err) {
             console.error("Failed to delete comment", err);
-            toast.error("Failed to delete comment.");
+            toast.error("Failed to delete comment.", { autoClose: 1500 });
         }
     };
 
@@ -75,11 +75,11 @@ const CommentSection = ({ reviewId }) => {
                     c._id === commentId ? { ...c, content: res.data.comment.content } : c
                 )
             );
-            toast.success("Comment updated successfully.");
+            toast.success("Comment updated successfully.", { autoClose: 1500 });
             setEditingCommentId(null);
         } catch (err) {
             console.error("Failed to update comment", err);
-            toast.error("Failed to update comment.");
+            toast.error("Failed to update comment.", { autoClose: 1500 });
         }
     };
 
@@ -87,7 +87,7 @@ const CommentSection = ({ reviewId }) => {
         if (token) {
             setFormVisible(true);
         } else {
-            toast.error("Please log in to add a comment.");
+            toast.error("Please log in to add a comment.", { autoClose: 1500 });
         }
     };
 
@@ -103,7 +103,6 @@ const CommentSection = ({ reviewId }) => {
                             <div className="author">
                                 @{c.username || (user && c.userId === user.id ? user.name : "Anonymous")}
                             </div>
-                            {/* ... rest of your comment display logic ... */}
                             {editingCommentId === c._id ? (
                                 <>
                                     <textarea

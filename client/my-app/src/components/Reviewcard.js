@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./Reviewcard.css";
 import locationIcon from "../icons/619.png";
+import 'react-toastify/dist/ReactToastify.css';
+import '../style.css';
 
 const Reviewcard = ({
   id,
@@ -41,7 +43,7 @@ const Reviewcard = ({
     const token = localStorage.getItem("token");
 
     if (!token || !userId) {
-      toast.error("Please log in to like the review.");
+      toast.error("Please log in to like the review.", { autoClose: 1400 });
       return;
     }
 
@@ -66,10 +68,10 @@ const Reviewcard = ({
           return !prevLiked;
         });
       } else {
-        toast.error(data.message || "Unable to like the review.");
+        toast.error(data.message || "Unable to like the review.", { autoClose: 1500 });
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.", { autoClose: 1500 });
     } finally {
       setIsLiking(false);
     }
@@ -88,31 +90,26 @@ const Reviewcard = ({
 
   const nextImage = (e) => {
     e.preventDefault();
+    e.stopPropagation(); // ✅ Prevent Link click
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = (e) => {
     e.preventDefault();
+    e.stopPropagation(); // ✅ Prevent Link click
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Corrected function to truncate location text
   const truncateLocation = (text, wordLimit) => {
     if (!text) return "";
-    // Split by one or more spaces, filter out empty strings for robust word counting
     const words = text.trim().split(/\s+/);
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
-    }
-    return text;
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
   };
 
-  // Apply truncation for location, using 2 words as specified
-  const displayedLocation = truncateLocation(location, 2); 
+  const displayedLocation = truncateLocation(location, 2);
 
-  // Function to handle link click and scroll to top
   const handleLinkClick = () => {
-    window.scrollTo(0, 0); // Scroll to the top of the page
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -148,14 +145,13 @@ const Reviewcard = ({
           <h2>{placeName}</h2>
           <div className="location">
             <img src={locationIcon} alt="location icon" className="location-icon" />
-            {displayedLocation} {/* Use the truncated location here */}
+            {displayedLocation}
           </div>
         </div>
 
         <p className="review-text clamped">{reviewText}</p>
 
         {reviewText?.length > 120 && (
-          // Apply handleLinkClick to this Link as well if it navigates to the same review detail page
           <Link to={`/review/${id}`} className="read-more" onClick={handleLinkClick}>
             Read more
           </Link>
