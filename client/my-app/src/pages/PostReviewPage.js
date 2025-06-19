@@ -135,7 +135,7 @@ const PostReviewPage = () => {
 	return (
 		<div className="add-review-container">
 			<form className="review-form" onSubmit={handleSubmit}>
-				<label>Name</label>
+				<label>Name of your Stay</label>
 				<input
 					name="name"
 					value={data.name}
@@ -144,7 +144,7 @@ const PostReviewPage = () => {
 					placeholder="e.g., LM PG"
 				/>
 
-				<label>Location</label>
+				<label>Location of your Stay</label>
 				<input
 					name="location"
 					value={data.location}
@@ -153,7 +153,7 @@ const PostReviewPage = () => {
 					placeholder="e.g., B26 , Block B, Gamma1, Greater Noida"
 				/>
 
-				<label>Review</label>
+				<label>Your Stay-Story</label>
 				<textarea
 					name="reviewText"
 					value={data.reviewText}
@@ -163,7 +163,7 @@ const PostReviewPage = () => {
 				/>
 			
 
-				<label>Rating (0‑5)</label>
+				<label>Rate Your Stay (0‑5)</label>
 				<input
 					type="number"
 					name="rating"
@@ -210,10 +210,10 @@ const PostReviewPage = () => {
 					placeholder="e.g., ₹5,000 - ₹8,000/month"
 				/>
 
-				<label>Room Type</label>
+				<label>What kind of place have you lived in or are currently living in?</label>
 				<select name="roomType" value={data.roomType} onChange={handleChange}>
 					<option value="">Select</option>
-					{["Single", "Double", "Triple", "Shared"].map((opt) => (
+					{["PG", "Hostel", "Flat"].map((opt) => (
 						<option key={opt} value={opt}>
 							{opt}
 						</option>
@@ -235,7 +235,7 @@ const PostReviewPage = () => {
 					))}
 				</div>
 
-				<label>PG Type</label>
+				<label>Gender preference at your stay</label>
 				<select name="pgType" value={data.pgType} onChange={handleChange}>
 					<option value="">Select</option>
 					{["Male", "Female", "Co-ed"].map((opt) => (

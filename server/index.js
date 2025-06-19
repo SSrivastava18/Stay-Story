@@ -16,6 +16,15 @@ const port = process.env.PORT || 2000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+// Remove COOP/COEP headers during development to prevent Google OAuth warning
+if (process.env.NODE_ENV !== "production") {
+  app.use((req, res, next) => {
+    res.removeHeader("Cross-Origin-Opener-Policy");
+    res.removeHeader("Cross-Origin-Embedder-Policy");
+    next();
+  });
+}
+
 app.use(
   fileUpload({
     createParentPath: true,

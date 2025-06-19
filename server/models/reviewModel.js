@@ -44,7 +44,7 @@ const reviewSchema = new mongoose.Schema(
 
     roomType: {
       type: String,
-      enum: ["Single", "Double", "Triple", "Shared"],
+      enum: ["PG", "Hostel", "Flat"],
     },
 
     facilities: { type: [String], default: [] },

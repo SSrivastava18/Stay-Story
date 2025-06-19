@@ -112,22 +112,22 @@ const AboutUs = () => {
 						<strong>Saurabh Srivastava</strong> – Co-Founder
 						<br />
 						<strong>Email:</strong>{" "}
-						<a href="mailto:saurabh@staystory.in">
-							saurabh@staystory.in
+						<a href="mailto:srivas20saurabh@gmail.com">
+							srivas20saurabh@gmail.com
 						</a>
 						<br />
 						<strong>LinkedIn:</strong>{" "}
-						<a href="https://www.linkedin.com/in/saurabh" target="_blank" rel="noopener noreferrer">
+						<a href="https://www.linkedin.com/in/saurabh-srivastava-5594862b8/" target="_blank" rel="noopener noreferrer">
 							<FaLinkedin /> linkedin.com/in/saurabh
 						</a>
 						<br />
 						<strong>GitHub:</strong>{" "}
-						<a href="https://github.com/saurabh" target="_blank" rel="noopener noreferrer">
+						<a href="https://github.com/SSrivastava18" target="_blank" rel="noopener noreferrer">
 							<FaGithub /> github.com/saurabh
 						</a>
 						<br />
 						<strong>Twitter:</strong>{" "}
-						<a href="https://twitter.com/saurabh" target="_blank" rel="noopener noreferrer">
+						<a href="https://x.com/Saurabh21937494" target="_blank" rel="noopener noreferrer">
 							<FaTwitter /> twitter.com/saurabh
 						</a>
 					</p>

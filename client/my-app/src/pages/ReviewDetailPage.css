@@ -46,6 +46,17 @@
     line-height: 1.6;
     /* No margin-top needed here as it's handled by gap in review-left */
 }
+.location-bar {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 
 /* Specific styling for the moved comment section */
 .comment-wrapper {
@@ -559,6 +570,9 @@
         width: 95%; /* Adjusted width */
         margin: 40px auto 20px auto; /* Centered with top and bottom margin */
     }
+    .recommended-reviews-wrapper {
+    margin-top: 170px;
+}
 }
 
 /* For very small devices (e.g., older or smaller phones) */

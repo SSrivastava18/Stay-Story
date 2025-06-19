@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { StoreContext } from "../StoreContext";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import Icon from "./icon"; // Optional icon
 import "./Login.css";
 import 'react-toastify/dist/ReactToastify.css';
 import '../style.css';
@@ -27,17 +26,29 @@ const Login = ({ setshowLogin }) => {
     e.preventDefault();
     let endpoint = page === "Login" ? "/user/login" : "/user/signup";
 
+    // ✅ Restrict signup to only @gmail.com addresses
+    if (page === "Sign up" && !data.email.endsWith("@gmail.com")) {
+      toast.error("Only Gmail addresses are allowed for signup", { autoClose: 1500 });
+      return;
+    }
+
     try {
       const res = await axios.post(apiUrl + endpoint, data);
       if (res.data.success) {
         const token = res.data.token;
         setToken(token);
         localStorage.setItem("token", token);
-        await getUserData(token);
+
+        if (typeof getUserData === "function") {
+          await getUserData(token);
+        } else {
+          console.warn("getUserData is not a function.");
+        }
+
         setshowLogin(false);
         toast.success("Logged in successfully", { autoClose: 1500 });
       } else {
-        toast.error("Login failed", { autoClose: 1500 });
+        toast.error(res.data.message || "Signup/Login failed", { autoClose: 1500 });
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred", { autoClose: 1500 });
@@ -54,7 +65,11 @@ const Login = ({ setshowLogin }) => {
         const token = res.data.token;
         setToken(token);
         localStorage.setItem("token", token);
-        await getUserData(token);
+
+        if (typeof getUserData === "function") {
+          await getUserData(token);
+        }
+
         setshowLogin(false);
         toast.success("Logged in with Google!", { autoClose: 1500 });
       } else {
@@ -99,6 +114,7 @@ const Login = ({ setshowLogin }) => {
               placeholder="Email address"
               required
               className="input-field"
+              autoComplete="email"
             />
             <input
               onChange={handleOnchange}
@@ -108,6 +124,7 @@ const Login = ({ setshowLogin }) => {
               placeholder="Password"
               required
               className="input-field"
+              autoComplete="current-password"
             />
             <button type="submit" className="login-btn">
               {page === "Sign up" ? "Create Account" : "Login now"}

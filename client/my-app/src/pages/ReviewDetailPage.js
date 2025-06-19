@@ -13,7 +13,8 @@ import '../style.css';
 // Icons
 import {
   FaStar, FaMapMarkerAlt, FaCheckCircle, FaBroom, FaUtensils, FaShieldAlt, FaWifi,
-  FaRupeeSign, FaBed, FaParking, FaDumbbell, FaHandsWash, FaBuilding, FaUsers
+  FaRupeeSign, FaBed, FaParking, FaDumbbell, FaHandsWash, FaBuilding, FaUsers,
+  FaMale, FaFemale // Added FaMale and FaFemale
 } from 'react-icons/fa';
 
 const ReviewDetailPage = () => {
@@ -135,8 +136,16 @@ const ReviewDetailPage = () => {
           <h1 className="review-title below-image">{review.name}</h1>
 
           <div className="review-text-card">
-            <h3>Review</h3>
+            <h3>Your Stay-Story</h3>
             <p>{review.reviewText}</p>
+          </div>
+
+          <div className="location-bar">
+            <FaMapMarkerAlt className="meta-icon" />
+            <div>
+              <p className="meta-category">Location</p>
+              <p className="meta-value">{review.location}</p>
+            </div>
           </div>
         </div>
 
@@ -192,11 +201,6 @@ const ReviewDetailPage = () => {
               <h3 className="section-heading">About this place:</h3>
               <div className="meta-grid">
                 <div className="meta-item">
-                  <FaMapMarkerAlt className="meta-icon" />
-                  <p className="meta-category">Location</p>
-                  <p className="meta-value">{review.location}</p>
-                </div>
-                <div className="meta-item">
                   <FaStar className="meta-icon" />
                   <p className="meta-category">Rating</p>
                   <p className="meta-value">{review.rating}/5</p>
@@ -208,13 +212,15 @@ const ReviewDetailPage = () => {
                 </div>
                 <div className="meta-item">
                   <FaBed className="meta-icon" />
-                  <p className="meta-category">Room Type</p>
+                  <p className="meta-category">kind of place</p>
                   <p className="meta-value">{review.roomType}</p>
                 </div>
                 {review.pgType && (
                   <div className="meta-item">
-                    <FaBuilding className="meta-icon" />
-                    <p className="meta-category">PG Type</p>
+                    {review.pgType === "Male" && <FaMale className="meta-icon" />}
+                    {review.pgType === "Female" && <FaFemale className="meta-icon" />}
+                    {review.pgType === "Co-ed" && <FaUsers className="meta-icon" />}
+                    <p className="meta-category">Gender preference</p>
                     <p className="meta-value">{review.pgType}</p>
                   </div>
                 )}
