@@ -1,17 +1,14 @@
-import React from "react";
 import "./Footer.css";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
+
 
 const Footer = () => {
-    // Function to prevent default link behavior
     const handleFooterContactClick = (e) => {
         e.preventDefault();
-        // You can add other functionality here if needed, e.g., open a modal, copy email
         console.log("Contact link in footer clicked! No navigation.");
     };
 
     return (
-        // id="footer" is correct for scrolling from the Nav component
         <footer id="footer" className="footer-container">
             <div className="footer-content">
                 <div className="footer-brand">
@@ -22,7 +19,7 @@ const Footer = () => {
                     </p>
                     <div className="footer-social">
                         <a
-                            href="https://www.linkedin.com"
+                            href="https://www.linkedin.com/in/stay-story-416730370/"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="LinkedIn"
@@ -30,7 +27,7 @@ const Footer = () => {
                             <FaLinkedin className="footer-icon" />
                         </a>
                         <a
-                            href="https://twitter.com"
+                            href="https://x.com/staystoryweb"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Twitter"
@@ -38,12 +35,12 @@ const Footer = () => {
                             <FaTwitter className="footer-icon" />
                         </a>
                         <a
-                            href="https://github.com"
+                            href="https://www.instagram.com/stor_ystay?igsh=eTE1NTJsN2t0MHFj"
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label="GitHub"
+                            aria-label="Instagram"
                         >
-                            <FaGithub className="footer-icon" />
+                            <FaInstagram className="footer-icon" />
                         </a>
                     </div>
                 </div>
@@ -54,10 +51,7 @@ const Footer = () => {
                     <a className="footer-link" href="/post-review">Add Review</a>
                     <a className="footer-link" href="/about">About Us</a>
 
-                    {/* Change for the "Contact" link within the footer:
-                        - Set href to "#"
-                        - Add onClick to prevent default navigation
-                    */}
+
                     <a className="footer-link" href="#" onClick={handleFooterContactClick}>
                         Contact
                     </a>
