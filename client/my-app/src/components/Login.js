@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../style.css';
 
 const Login = ({ setshowLogin }) => {
-  const apiUrl = "http://localhost:2000";
+      const { apiUrl } = useContext(StoreContext);
   const { setToken, getUserData } = useContext(StoreContext);
   const navigate = useNavigate();
   const [page, setPage] = useState("Sign up");

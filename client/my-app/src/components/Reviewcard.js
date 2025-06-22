@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./Reviewcard.css";
 import locationIcon from "../icons/619.png";
+import { StoreContext } from "../StoreContext";
+import { useContext } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import '../style.css';
 
@@ -24,6 +26,7 @@ const Reviewcard = ({
   const [isLiking, setIsLiking] = useState(false);
   const [userId, setUserId] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+   const {apiUrl } = useContext(StoreContext);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -50,7 +53,7 @@ const Reviewcard = ({
     setIsLiking(true);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/review/like/${id}`,
+        `${apiUrl}/review/like/${id}`,
         {
           method: "POST",
           headers: {
@@ -77,13 +80,11 @@ const Reviewcard = ({
     }
   };
 
-  const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2000";
-
   const getImageUrl = (img) => {
     if (typeof img === "string") {
-      return img.startsWith("http") ? img : `${baseUrl}/${img.replace(/\\/g, "/")}`;
+      return img.startsWith("http") ? img : `${apiUrl}/${img.replace(/\\/g, "/")}`;
     } else if (typeof img === "object" && img?.url) {
-      return img.url.startsWith("http") ? img.url : `${baseUrl}/${img.url.replace(/\\/g, "/")}`;
+      return img.url.startsWith("http") ? img.url : `${apiUrl}/${img.url.replace(/\\/g, "/")}`;
     }
     return "https://via.placeholder.com/400x200?text=No+Image";
   };

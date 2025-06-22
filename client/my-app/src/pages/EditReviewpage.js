@@ -10,7 +10,7 @@ import '../style.css';
 const EditReviewpage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token } = useContext(StoreContext);
+  const { token,apiUrl } = useContext(StoreContext);
 
   const [reviewData, setReviewData] = useState({
     name: "",
@@ -34,7 +34,7 @@ const EditReviewpage = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await axios.get(`http://localhost:2000/review/${id}`);
+        const response = await axios.get(`${apiUrl}/review/${id}`);
         const data = response.data;
 
         const existingImages = Array.isArray(data.image) ? data.image : [data.image].filter(Boolean);
@@ -118,7 +118,7 @@ const EditReviewpage = () => {
     );
 
     try {
-      const res = await axios.put(`http://localhost:2000/review/${id}`, formData, {
+      const res = await axios.put(`${apiUrl}/review/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

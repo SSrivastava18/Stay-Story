@@ -103,8 +103,8 @@ const AboutUs = () => {
 						</a>
 						<br />
 						<strong>Twitter:</strong>{" "}
-						<a href="https://twitter.com/raushangupta16" target="_blank" rel="noopener noreferrer">
-							<FaTwitter /> twitter.com/raushangupta16
+						<a href="https://x.com/RaushanGupta_16" target="_blank" rel="noopener noreferrer">
+							<FaTwitter /> twitter.com/raushangupta
 						</a>
 					</p>
 

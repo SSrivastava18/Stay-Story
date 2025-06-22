@@ -5,14 +5,14 @@ import Reviewcard from "../components/Reviewcard";
 import "./MyReviewspage.css";
 
 const MyReviewspage = () => {
-  const { token } = useContext(StoreContext);
+  const { token ,apiUrl} = useContext(StoreContext);
   const [myReviews, setMyReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMyReviews = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/review/my-reviews`, {
+        const res = await axios.get(`${apiUrl}/review/my-reviews`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMyReviews(res.data.reviews);

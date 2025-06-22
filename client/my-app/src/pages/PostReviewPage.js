@@ -8,8 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';  // ✅ default
 import '../style.css';
 
 const PostReviewPage = () => {
-	const API_URL = "http://localhost:2000";
-	const { token } = useContext(StoreContext);
+	const { token,apiUrl } = useContext(StoreContext);
 	const navigate = useNavigate();
 
 	const [data, setData] = useState({
@@ -90,7 +89,7 @@ const PostReviewPage = () => {
 		});
 
 		try {
-			const { data: res } = await axios.post(`${API_URL}/review`, formData, {
+			const { data: res } = await axios.post(`${apiUrl}/review`, formData, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 					Authorization: `Bearer ${token}`,
