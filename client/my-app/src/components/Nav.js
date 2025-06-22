@@ -44,7 +44,6 @@ const Nav = ({ setshowLogin }) => {
         style={{ cursor: "pointer" }}
       />
 
-
       <div className="centernav">
         <button
           onClick={() => {
