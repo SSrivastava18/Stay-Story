@@ -3,13 +3,15 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { StoreContext } from "../StoreContext";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import 'react-toastify/dist/ReactToastify.css';
 import '../style.css';
 
 const Login = ({ setshowLogin }) => {
-  const apiUrl = "http://localhost:2000"; // Update this in production
+  const apiUrl = "http://localhost:2000";
   const { setToken, getUserData } = useContext(StoreContext);
+  const navigate = useNavigate();
   const [page, setPage] = useState("Sign up");
   const [data, setdata] = useState({
     name: "",
@@ -26,7 +28,6 @@ const Login = ({ setshowLogin }) => {
     e.preventDefault();
     let endpoint = page === "Login" ? "/user/login" : "/user/signup";
 
-    // ✅ Restrict signup to only @gmail.com addresses
     if (page === "Sign up" && !data.email.endsWith("@gmail.com")) {
       toast.error("Only Gmail addresses are allowed for signup", { autoClose: 1500 });
       return;
@@ -41,8 +42,6 @@ const Login = ({ setshowLogin }) => {
 
         if (typeof getUserData === "function") {
           await getUserData(token);
-        } else {
-          console.warn("getUserData is not a function.");
         }
 
         setshowLogin(false);
@@ -139,21 +138,32 @@ const Login = ({ setshowLogin }) => {
 
             <div className="terms-container">
               <input type="checkbox" required className="checkbox" />
-              <p>Agree to the terms of use & privacy policy.</p>
+              <p>
+                Agree to the{" "}
+                <span
+                  className="terms-link"
+                  onClick={() => {
+                    setshowLogin(false);
+                    navigate("/terms-of-use");
+                  }}
+                >
+                  terms of use & privacy policy
+                </span>.
+              </p>
             </div>
 
             <p className="toggle-text">
               {page === "Sign up" ? (
                 <>
                   Already have an account?{" "}
-                  <span className="toggle-link" onClick={() => setPage("Login")}>
+                  <span className="toggle-hover-link" onClick={() => setPage("Login")}>
                     Login here
                   </span>
                 </>
               ) : (
                 <>
                   Create an Account?{" "}
-                  <span className="toggle-link" onClick={() => setPage("Sign up")}>
+                  <span className="toggle-hover-link" onClick={() => setPage("Sign up")}>
                     Click here
                   </span>
                 </>

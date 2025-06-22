@@ -26,23 +26,24 @@
 .image-slider-container {
   position: relative;
   width: 100%;
-  height: 200px; /* Adjust this height if images have a different common aspect ratio */
+  height: 200px;
   overflow: hidden;
   background-color: #111827;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
   display: flex;
-  justify-content: center; /* This centers horizontally */
-  align-items: center; /* This centers vertically */
+  justify-content: center;
+  align-items: center;
 }
+
 
 .slider-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* This makes the image cover the container, cropping if necessary */
-  object-position: center; /* This centers the image content within the covered area */
+  object-fit: cover;
+  object-position: center;
   display: block;
+  border-radius: 0 !important; /* Remove any inherited radius */
 }
+
 
 /* Prev Button */
 .prev-btn {

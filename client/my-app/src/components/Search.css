@@ -1,6 +1,6 @@
 /* === PAGE SPACING === */
 .search-wrapper {
-  margin-top: 120px;
+  margin-top: 150px;
   padding-bottom: 40px;
 }
 
@@ -24,7 +24,7 @@
   width: 100%;
   max-width: 700px;
   position: relative;
-  gap: 0;
+  gap: 5;
 }
 
 /* === SEARCH INPUT === */
@@ -44,6 +44,7 @@
   min-width: 240px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  gap: 5px;
 }
 
 .search-bar::placeholder {
@@ -71,7 +72,7 @@
   font-weight: 600;
   box-sizing: border-box;
   margin-left: 5px;
-  margin-bottom: 23px;
+  
 }
 
 .search-button:hover:not(:disabled) {
@@ -197,7 +198,7 @@
   .clear-icon {
     right: 30px;
     font-size: 22px;
-    margin-top: -38px;
+    margin-top: -30px;
     margin-right: -10px;
   }
 }

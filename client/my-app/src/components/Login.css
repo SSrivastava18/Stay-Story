@@ -1,220 +1,227 @@
 /* Login Overlay and Container */
 .login-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Darker overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it's above other content */
-    backdrop-filter: blur(5px); /* Optional: Adds a blur effect to the background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
 .login-container {
-    background: #1e293b; /* Dark background, similar to info cards */
-    padding: 30px;
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
-    width: 90%; /* Responsive width */
-    max-width: 450px; /* Max width for desktop */
-    position: relative;
-    color: #e2e8f0; /* Light text color */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    border: 1px solid #334155; /* Subtle border */
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #334155;
 }
 
 /* Close Button */
 .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #e2e8f0; /* Light color */
-    cursor: pointer;
-    transition: color 0.2s ease;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .close-btn:hover {
-    color: #facc15; /* Accent color on hover */
+  color: #facc15;
 }
 
 /* Title */
 .login-title {
-    font-size: 2em;
-    color: #facc15; /* Accent color for title */
-    margin-bottom: 25px;
-    font-weight: bold;
-    text-align: center;
+  font-size: 2em;
+  color: #facc15;
+  margin-bottom: 25px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /* Form */
 .login-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* Form takes full width of container */
-    gap: 15px; /* Space between form elements */
-    /* No need for specific centering here if inputs are 100% width,
-       as they will naturally align to the container's center alignment. */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
 }
 
 /* Input Fields */
 .input-field {
-    padding: 14px 15px;
-    border: 1px solid #334155; /* Darker border */
-    border-radius: 8px; /* Rounded input fields */
-    background-color: #0f172a; /* Even darker input background */
-    color: #e2e8f0; /* Light text color */
-    font-size: 1em;
-    outline: none; /* Remove default outline */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    /* Ensuring inputs are block-level to take full width and handle margins if needed */
-    display: block;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: 14px 15px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  box-sizing: border-box;
 }
 
 .input-field::placeholder {
-    color: #94a3b8; /* Lighter placeholder text */
+  color: #94a3b8;
 }
 
 .input-field:focus {
-    border-color: #facc15; /* Accent border on focus */
-    box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.3); /* Subtle glow */
+  border-color: #facc15;
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.3);
 }
 
 /* Login/Create Account Button */
 .login-btn {
-    background-color: #facc15; /* Accent color for button */
-    color: #000; /* Black text on accent color */
-    padding: 14px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    margin-top: 5px; /* Space above the button */
-    width: 100%; /* Ensure button also takes full width for consistent alignment */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  background-color: #facc15;
+  color: #000;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-btn:hover {
-    background-color: #eab308; /* Slightly darker accent on hover */
-    transform: translateY(-1px); /* Slight lift effect */
+  background-color: #eab308;
+  transform: translateY(-1px);
 }
 
-/* Google Login Button (via @react-oauth/google) */
-/* The GoogleLogin component is an iframe/shadow DOM, making direct styling challenging.
-   The best approach for visual centering is often to wrap it in a div if needed,
-   but its default rendering usually makes it self-contained.
-   We'll ensure the margin is correct for spacing. */
+/* Google Login Button Container */
 .login-form > div:has(button[aria-label="Sign in with Google"]) {
-    margin-top: 15px; /* Adjust spacing above the Google button */
-    display: flex; /* Use flexbox to center the Google button if it doesn't take full width */
-    justify-content: center; /* Center the Google button horizontally */
-    width: 100%; /* Ensure the container for the Google button takes full width */
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
-
 
 /* Terms and Policy */
 .terms-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px; /* Space above terms */
-    font-size: 0.9em;
-    color: #cbd5e1;
-    width: 100%; /* Ensure it also takes full width */
-    justify-content: center; /* Center content if it's narrower than 100% */
-    text-align: center; /* Ensure text inside is also centered */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #cbd5e1;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
 }
 
 .checkbox {
-    width: 18px;
-    height: 18px;
-    accent-color: #facc15; /* Accent color for checkbox */
-    border-radius: 4px; /* Slightly rounded checkbox */
-    flex-shrink: 0; /* Prevent checkbox from shrinking */
+  width: 18px;
+  height: 18px;
+  accent-color: #facc15;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
+/* Terms Link */
+.terms-link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
 
-/* Toggle Text (Already have an account? / Create an Account?) */
+.terms-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Toggle Text */
 .toggle-text {
-    margin-top: 20px; /* Space above toggle text */
-    font-size: 0.95em;
-    color: #cbd5e1;
-    text-align: center;
-    width: 100%; /* Ensure it takes full width for consistent centering */
+  margin-top: 20px;
+  font-size: 0.95em;
+  color: #cbd5e1;
+  text-align: center;
+  width: 100%;
 }
 
-.toggle-link {
-    color: #facc15; /* Accent color for links */
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none; /* Remove underline */
-    transition: color 0.2s ease;
+/* Toggle Link Hover */
+.toggle-hover-link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.toggle-link:hover {
-    color: #eab308; /* Darker accent on hover */
-    text-decoration: underline; /* Add underline on hover */
+.toggle-hover-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
 }
 
 /* --- Responsiveness --- */
 
-/* For smaller devices (phones) */
+/* For smaller devices */
 @media (max-width: 600px) {
-    .login-container {
-        padding: 20px;
-        border-radius: 10px;
-    }
+  .login-container {
+    padding: 20px;
+    border-radius: 10px;
+  }
 
-    .login-title {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
+  .login-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
 
-    .input-field {
-        padding: 12px 15px;
-        font-size: 0.95em;
-    }
+  .input-field {
+    padding: 12px 15px;
+    font-size: 0.95em;
+  }
 
-    .login-btn {
-        padding: 12px 15px;
-        font-size: 1em;
-    }
+  .login-btn {
+    padding: 12px 15px;
+    font-size: 1em;
+  }
 
-    .terms-container,
-    .toggle-text {
-        font-size: 0.85em;
-        margin-top: 15px;
-    }
+  .terms-container,
+  .toggle-text {
+    font-size: 0.85em;
+    margin-top: 15px;
+  }
 
-    .close-btn {
-        font-size: 20px;
-        top: 10px;
-        right: 10px;
-    }
+  .close-btn {
+    font-size: 20px;
+    top: 10px;
+    right: 10px;
+  }
 }
 
 /* For very small devices */
 @media (max-width: 400px) {
-    .login-container {
-        padding: 15px;
-    }
-    .login-title {
-        font-size: 1.6em;
-    }
-    .input-field {
-        font-size: 0.9em;
-    }
-    .login-btn {
-        font-size: 0.95em;
-    }
+  .login-container {
+    padding: 15px;
+  }
+
+  .login-title {
+    font-size: 1.6em;
+  }
+
+  .input-field {
+    font-size: 0.9em;
+  }
+
+  .login-btn {
+    font-size: 0.95em;
+  }
 }

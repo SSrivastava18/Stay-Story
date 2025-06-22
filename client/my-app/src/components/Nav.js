@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../StoreContext";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import menu from "../icons/menu.png"; 
+import menu from "../icons/menu.png";
 import logo from "../icons/logo.png";
 import 'react-toastify/dist/ReactToastify.css';
 import '../style.css';
@@ -75,7 +75,15 @@ const Nav = ({ setshowLogin }) => {
           {token && <p id="userName">Hi, {user.name}</p>}
           <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
           <button onClick={scrollToFooter}>Contact</button>
-          <Link to="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
+          <button
+            onClick={() => {
+              setMenuOpen(false);
+              navigate("/about");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            About Us
+          </button>
           <Link to="/post-review" onClick={() => setMenuOpen(false)}>Post Review</Link>
 
           {token ? (

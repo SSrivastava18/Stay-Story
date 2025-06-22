@@ -1,9 +1,9 @@
 :root {
-  --primary-bg: #0f172a;           /* Dark slate */
+  --primary-bg: #0f172a;
   --secondary-bg: #1e293b;
   --text-light: #f1f5f9;
   --text-muted: #cbd5e1;
-  --accent-color: #38bdf8;         /* Sky blue */
+  --accent-color: #38bdf8;
   --accent-dark: #0ea5e9;
   --border-color: #334155;
 }
@@ -13,12 +13,27 @@ body {
   background-color: var(--primary-bg);
   font-family: "Segoe UI", sans-serif;
 }
+/* Login.css */
+
+.terms-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
 
 .about-wrapper {
   width: 100%;
   padding: 60px 0;
   background-color: var(--primary-bg);
   color: var(--text-light);
+  min-height: 100vh;
 }
 
 .about-container {

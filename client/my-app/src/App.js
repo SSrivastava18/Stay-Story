@@ -17,6 +17,9 @@ import MyReviewspage from "./pages/MyReviewspage";
 import AboutUs from "./pages/AboutUs";
 import Footer from "./components/Footer";
 import 'leaflet/dist/leaflet.css';
+import TermsOfUse from "./pages/TermsOfUse";
+
+
 function App() {
 	const { token } = useContext(StoreContext);
 	function ProtectedRoute({ element }) {
@@ -44,6 +47,8 @@ function App() {
 				<Route path="/edit-review/:id" element={<EditReviewPage />} />
 				<Route path="/my-reviews" element={<MyReviewspage />} />
 				<Route path="/about" element={<AboutUs />} />
+				<Route path="/terms-of-use" element={<TermsOfUse />} />
+
 				
 			</Routes>
 			   <Footer />
