@@ -1,12 +1,30 @@
 import "./Footer.css";
 import { FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { StoreContext } from "../StoreContext";
 
 
 const Footer = () => {
+    const { token } = useContext(StoreContext);
+    const navigate = useNavigate();
+
     const handleFooterContactClick = (e) => {
         e.preventDefault();
         console.log("Contact link in footer clicked! No navigation.");
     };
+
+    const handlePostReviewClick = (e) => {
+    e.preventDefault();
+    if (token) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        navigate("/post-review");
+    } else {
+        alert("Please login first to post a review.");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+};
+
 
     return (
         <footer id="footer" className="footer-container">
@@ -48,18 +66,13 @@ const Footer = () => {
                 <div className="footer-links">
                     <h2 className="footer-heading">Explore</h2>
                     <a className="footer-link" href="/">Home</a>
-                    <a className="footer-link" href="/post-review">Add Review</a>
+                    <a className="footer-link" href="#" onClick={handlePostReviewClick}>Add Review</a>
                     <a className="footer-link" href="/about">About Us</a>
-
-
-                    <a className="footer-link" href="#" onClick={handleFooterContactClick}>
-                        Contact
-                    </a>
+                    <a className="footer-link" href="#" onClick={handleFooterContactClick}>Contact</a>
                 </div>
 
                 <div className="footer-contact">
                     <h2 className="footer-heading">Get in Touch</h2>
-                    
                     <p className="footer-contact-item">staystoryweb@gmail.com</p>
                 </div>
             </div>
@@ -72,6 +85,5 @@ const Footer = () => {
         </footer>
     );
 };
-
 
 export default Footer;
