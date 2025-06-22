@@ -4,8 +4,8 @@ import axios from "axios";
 import { StoreContext } from "../StoreContext";
 import "./EditReviewPage.css";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "../style.css";
+import 'react-toastify/dist/ReactToastify.css';  // ✅ default
+import '../style.css';
 
 const EditReviewpage = () => {
   const { id } = useParams();
@@ -107,7 +107,6 @@ const EditReviewpage = () => {
 
     Object.entries(reviewData.facilitiesRating).forEach(([k, v]) => {
       formData.append(`facilitiesRating[${k}]`, v);
-
     });
 
     ["facilities"].forEach((key) => {
@@ -121,51 +120,62 @@ const EditReviewpage = () => {
     try {
       const res = await axios.put(`http://localhost:2000/review/${id}`, formData, {
         headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${ token }`,
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
-  });
+      });
 
-  if (res.data.success) {
-    toast.success("Review updated successfully", { autoClose: 1500 });
-    navigate(`/review/${ id }`);
-  } else {
-    toast.error(res.data.message, { autoClose: 1500 });
-  }
-} catch (error) {
-  toast.error(error.response?.data?.message || "Something went wrong", { autoClose: 1500 });
-}
+      if (res.data.success) {
+        toast.success("Review updated successfully", { autoClose: 1500 }); // ✅
+        navigate(`/review/${id}`);
+      } else {
+        toast.error(res.data.message, { autoClose: 1500 }); // ✅
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong", { autoClose: 1500 }); // ✅
+    }
+
   };
 
-return (
-  <div className="edit-review-container">
-    <form onSubmit={handleSubmit} className="review-form">
-      <div className="form-group">
+  return (
+    <div className="edit-review-container">
+      <h2>Edit Review</h2>
+      <form onSubmit={handleSubmit}>
         <label>Name</label>
         <input type="text" name="name" value={reviewData.name} onChange={handleChange} required />
-      </div>
 
-      <div className="form-group">
         <label>Location</label>
         <input type="text" name="location" value={reviewData.location} onChange={handleChange} required />
-      </div>
 
-      <div className="form-group full-width">
         <label>Review</label>
         <textarea name="reviewText" value={reviewData.reviewText} onChange={handleChange} required />
-      </div>
 
-      <div className="form-group">
         <label>Rating (0-5)</label>
         <input type="number" name="rating" value={reviewData.rating} onChange={handleChange} min="0" max="5" required />
-      </div>
 
-      <div className="form-group">
+        {/* Updated image section with spacing */}
+        <div className="image-upload-section">
+          <label>Uploaded Images</label>
+          <div className="image-preview-wrapper">
+            {reviewData.images.map((img, idx) => (
+              <div className="image-preview-box" key={idx}>
+                <img
+                  src={img?.url || img}
+                  alt={`Preview ${idx}`}
+                  className="uploaded-image"
+                />
+                <span className="remove-image" onClick={() => handleRemoveImage(idx)}>
+                  ×
+                </span>
+              </div>
+            ))}
+          </div>
+          <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+        </div>
+
         <label>Price Range</label>
         <input type="text" name="priceRange" value={reviewData.priceRange} onChange={handleChange} />
-      </div>
 
-      <div className="form-group">
         <label>Room Type</label>
         <select name="roomType" value={reviewData.roomType} onChange={handleChange}>
           <option value="">Select</option>
@@ -174,9 +184,7 @@ return (
           <option value="Triple">Triple</option>
           <option value="Shared">Shared</option>
         </select>
-      </div>
 
-      <div className="form-group full-width">
         <label>Facilities</label>
         <div className="checkbox-group">
           {["WiFi", "Laundry", "Meals", "Parking", "Gym"].map((facility) => (
@@ -191,9 +199,7 @@ return (
             </label>
           ))}
         </div>
-      </div>
 
-      <div className="form-group">
         <label>PG Type</label>
         <select name="pgType" value={reviewData.pgType} onChange={handleChange}>
           <option value="">Select</option>
@@ -201,9 +207,7 @@ return (
           <option value="Female">Female</option>
           <option value="Co-ed">Co-ed</option>
         </select>
-      </div>
 
-      <div className="form-group">
         <label>Preferred Tenant</label>
         <select name="preferredTenant" value={reviewData.preferredTenant} onChange={handleChange}>
           <option value="">Select</option>
@@ -211,40 +215,26 @@ return (
           <option value="Working Professionals">Working Professionals</option>
           <option value="Both">Both</option>
         </select>
-      </div>
 
-      <h3>Facilities Rating (0-5)</h3>
-      {Object.entries(reviewData.facilitiesRating).map(([key, value]) => (
-        <div className="form-group" key={key}>
-          <label>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
-          <input
-            type="number"
-            name={key}
-            value={value}
-            onChange={handleFacilityRatingChange}
-            min="0"
-            max="5"
-          />
-        </div>
-      ))}
+        <h3>Facilities Rating (0-5)</h3>
+        {Object.entries(reviewData.facilitiesRating).map(([key, value]) => (
+          <div key={key}>
+            <label>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
+            <input
+              type="number"
+              name={key}
+              value={value}
+              onChange={handleFacilityRatingChange}
+              min="0"
+              max="5"
+            />
+          </div>
+        ))}
 
-      <div className="form-group full-width image-upload-section">
-        <label>Uploaded Images</label>
-        <div className="image-preview-wrapper">
-          {reviewData.images.map((img, idx) => (
-            <div className="image-preview-box" key={idx}>
-              <img src={img?.url || img} alt={`Preview ${idx}`} className="uploaded-image" />
-              <span className="remove-image" onClick={() => handleRemoveImage(idx)}>×</span>
-            </div>
-          ))}
-        </div>
-        <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
-      </div>
-
-      <button type="submit">Update Review</button>
-    </form>
-  </div>
-);
+        <button type="submit">Update Review</button>
+      </form>
+    </div>
+  );
 };
 
 export default EditReviewpage;

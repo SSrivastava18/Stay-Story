@@ -32,14 +32,39 @@ const Nav = ({ setshowLogin }) => {
 
   return (
     <div className="navbox">
-      <Link to="/" onClick={() => setMenuOpen(false)}>
-        <img src={logo} alt="logo icon" className="logo-icon" />
-      </Link>
+      <img
+        src={logo}
+        alt="logo icon"
+        className="logo-icon"
+        onClick={() => {
+          setMenuOpen(false);
+          navigate("/");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        style={{ cursor: "pointer" }}
+      />
+
 
       <div className="centernav">
-        <Link to="/" onClick={() => setMenuOpen(false)}><button>Home</button></Link>
+        <button
+          onClick={() => {
+            setMenuOpen(false);
+            navigate("/");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          Home
+        </button>
         <button onClick={scrollToFooter}>Contact</button>
-        <Link to="/about" onClick={() => setMenuOpen(false)}><button>About Us</button></Link>
+        <button
+          onClick={() => {
+            setMenuOpen(false);
+            navigate("/about");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          About Us
+        </button>
       </div>
 
       <div className="reviewloginbox">
