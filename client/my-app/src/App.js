@@ -49,9 +49,9 @@ function App() {
 				<Route path="/about" element={<AboutUs />} />
 				<Route path="/terms-of-use" element={<TermsOfUse />} />
 
-				
+
 			</Routes>
-			   <Footer />
+			<Footer />
 		</div>
 	);
 }
