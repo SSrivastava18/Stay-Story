@@ -17,15 +17,10 @@ Explore here - https://stay-story-client.onrender.com/
 - [✨ Features](#-features)
 - [🎯 Use Cases](#-use-cases)
 - [🧰 Tech Stack](#-tech-stack)
-- [📁 Folder Structure](#-folder-structure)
 - [⚙️ Installation & Setup](#️-installation--setup)
 - [🔐 Environment Variables](#-environment-variables)
 - [▶️ Running the App](#️-running-the-app)
 - [🌟 Core Functionalities](#-core-functionalities)
-- [🛠 Deployment](#-deployment)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [🙏 Acknowledgements](#-acknowledgements)
 
 ---
 
@@ -49,6 +44,7 @@ Explore here - https://stay-story-client.onrender.com/
 
 ---
 
+
 ## 🧰 Tech Stack – The MERN Power 💪
 
 | Technology | Role                 |
@@ -60,7 +56,8 @@ Explore here - https://stay-story-client.onrender.com/
 
 ---
 
-####
+
+## 🌟 Core Functionalities
 | Feature            | Description                                    |
 | ------------------ | ---------------------------------------------- |
 | 🧾 Review System   | Users can create, edit, or delete stay reviews |
@@ -69,8 +66,6 @@ Explore here - https://stay-story-client.onrender.com/
 | 🔐 Auth System     | Google OAuth login                             |
 | 🌐 Language Toggle | English ↔ Hindi                                |
 | 🎨 Responsive UI   | Works across all devices                       |
-####
-
 
 ## ⚙️ Installation & Setup
 
@@ -89,7 +84,7 @@ cd ../client
 npm install
 ```
 
-```Environment Variables
+## 🔐 Environment Variables
 
 MONGO_URI=your_mongodb_connection
 CLOUDINARY_CLOUD_NAME=your_cloudinary_name
@@ -99,16 +94,15 @@ GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 JWT_SECRET=your_jwt_secret
 
-```
 
-```Running the App Locally
+## ▶️ Running the App Locally
   -> Start Backend (Node + Express):
     cd server
     npm start
   -> Start Frontend (React):
     cd client
     npm start
-```
+
 
 
 
