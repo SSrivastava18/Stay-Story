@@ -98,11 +98,11 @@ JWT_SECRET=your_jwt_secret
 ## ▶️ Running the App Locally
 
   -> Start Backend (Node + Express):
-    cd server
+    cd server,
     npm start
     
   -> Start Frontend (React):
-    cd client
+    cd client,
     npm start
 
 
